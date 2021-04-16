@@ -2,8 +2,6 @@ import websocket, json
 import config
 import ast
 from collections import deque
-# from candlestick_creator import process
-from candlestick_creator import Candlestick_creator
 from datetime import datetime
 
 fresh_minute = False
@@ -26,7 +24,7 @@ def authenticate_connection(ws):
     channel_data = {
         "action": "listen",
         "data": { 
-            "streams": [f"AM.{config.STOCK_NAME}"]
+            "streams": [f"Q.{config.STOCK_NAME}"]
         }
     }
     return_value2 = ws.send(json.dumps(channel_data))
@@ -38,7 +36,7 @@ def stream_data(ws, msg):
     global fresh_minute
     print(dict_msg)
     # only process stock ticker data
-    if dict_msg["stream"] == f"AM.{config.STOCK_NAME}":
+    if dict_msg["stream"] == f"Q.{config.STOCK_NAME}":
         # print(dict_msg)
         creator.process(msg)
         # process(dict_msg)
@@ -58,5 +56,5 @@ def initiliaze_stream():
     ws.run_forever()
 
 if __name__ == "__main__":
-    creator = Candlestick_creator()
+    # creator = Candlestick_creator()
     initiliaze_stream()
