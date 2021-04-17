@@ -185,6 +185,14 @@ if __name__ == "__main__":
     for item in price_data:
         print(item)
     print(best_params)
-    # plot_best_actions(best_params["win_length"], best_params["polyorder"], best_params["maxmin_range"])
+    plot_best_actions(
+        price_data["bids"],
+        price_data["bids_d1"],
+        price_data["bids_d2"],
+        best_params["action_data"]["buys"]["x"],
+        best_params["action_data"]["buys"]["y"],
+        best_params["action_data"]["sells"]["x"],
+        best_params["action_data"]["sells"]["y"]
+        )
 
     # plot
