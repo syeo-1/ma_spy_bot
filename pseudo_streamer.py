@@ -5,6 +5,7 @@ import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal as ss
+import math
 
 # the parameters I need to mess with
 # the range that a local min/max should be detected
@@ -15,40 +16,44 @@ import scipy.signal as ss
 
 def param_guesser(bids):
     # initial_balance = 400_000
-    # max_profit = -inf
+    max_profit = -math.inf
     # maxmin_range = 0.0001
     best_polyorder = None
     best_window_length = None
     best_maxmin_range = None
+    maxmin_ranges = np.linspace(0,0.01,10,endpoint=False)
     # if polyorder is one less than win_length, then its a perfect fit, which is not wanted
     # iteration = 1
-    # for win_length in range(3, 200, 2):
-    #     print(f"current iteration: {iteration}")
-    #     for poly_order in range(1, winlength-1):
-    #         while maxmin_range < 1:
-    #             profit = test_params(win_length, poly_order, maxmin_range)
-    #             if profit > max_profit:
-    #                 max_profit = profit
-    #                 best_window_length = win_length
-    #                 best_polyorder = polyorder
-    #                 best_maxmin_range = maxmin_range
-    #             maxmin_range+=0.0001
-    #     iteration += 1
-
+    for win_length in range(99, 106, 2):
+        # print(f"current iteration: {iteration}")
+        for polyorder in range(1, 6):
+            # while maxmin_range < 1:
+            for maxmin_range in maxmin_ranges:
+                action_data = test_params(bids, win_length, polyorder, maxmin_range)
+                if action_data["profit"] > max_profit:
+                    max_profit = action_data["profit"]
+                    best_window_length = win_length
+                    best_polyorder = polyorder
+                    best_maxmin_range = maxmin_range
+                # maxmin_range += 0.0001
+                print(maxmin_range)
+        # break
+        # maxmin_range = 0.0001
+        # iteration += 1
+    # exit(0)
     # try plotting basic stuff first
-    test_win_length = 99
-    test_polyorder = 3
-    test_maxmin_range = 0.0001
-    action_data = test_params(bids, test_win_length, test_polyorder, test_maxmin_range)
+    # test_win_length = 99
+    # test_polyorder = 3
+    # test_maxmin_range = 0.0001
+    # action_data = test_params(bids, test_win_length, test_polyorder, test_maxmin_range)
     # print(action_data)
-    # print(f"best window length: {best_window_length}")
-    # print(f"best polyorder: {best_polyorder}")
-    # print(f"best maxmin range: {best_maxmin_range}")
-    # return [test_win_length, test_polyorder, test_maxmin_range]
+    print(f"best window length: {best_window_length}")
+    print(f"best polyorder: {best_polyorder}")
+    print(f"best maxmin range: {best_maxmin_range}")
     return {
-        "win_length": test_win_length,
-        "polyorder": test_polyorder,
-        "maxmin_range": test_maxmin_range,
+        "win_length": best_window_length,
+        "polyorder": best_polyorder,
+        "maxmin_range": best_maxmin_range,
         "action_data": action_data
     }
 
