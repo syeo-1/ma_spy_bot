@@ -176,6 +176,9 @@ def process_bid_data():
     }
     
 def process_optimal_sagol_data(winlength, polyorder):
+    '''
+    obtain savgol arrays using the optimal calculated parameters for max profit
+    '''
     sg_bids = ss.savgol_filter(bids, win_length, poly_order)
     sg_bids_deriv1 = ss.savgol_filter(bids, win_length, poly_order, deriv=1)
     sg_bids_deriv2 = ss.savgol_filter(bids, win_length, poly_order, deriv=2)
