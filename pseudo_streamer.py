@@ -78,23 +78,29 @@ def test_params(win_length, poly_order, maxmin_range):
     # plt.plot(sg_bids)
     buy = True
     sell = False
-    buys_x = []
-    buys_y = []
-    sells_x = []
-    sells_y = []
+    # buys_x = []
+    # buys_y = []
+    # sells_x = []
+    # sells_y = []
+    total_profit = 0
+    current_buy_price = None
     for i in range(len(bids)):
         if -maxmin_range < sg_bids_deriv1[i] < maxmin_range and sg_bids_deriv2[i] > 0 and buy:
             print(f'BUY: {i}')
-            buys_x.append(i)
-            buys_y.append(bids[i])
+            # buys_x.append(i)
+            # buys_y.append(bids[i])
+            current_buy = bids[i]
             buy = False
             sell = True
         elif -maxmin_range < sg_bids_deriv1[i] < maxmin_range and sg_bids_deriv2[i] < 0 and sell:
             print(f'SELL {i}')
-            sells_x.append(i)
-            sells_y.append(bids[i])
+            # sells_x.append(i)
+            # sells_y.append(bids[i])
+            current_sell_price = bid[i]
+            total_profit += current_sell_price - current_buy_price
             sell = False
             buy = True
+    return total_profit
 
 
 if __name__ == "__main__":
