@@ -67,7 +67,7 @@ def plot_best_actions(bids, bids_deriv1, bids_deriv2, buys_x, buys_y, sells_x, s
     fig, axs = plt.subplots(3)
     fig.set_figheight(8)
     fig.set_figwidth(8)
-    fig.suptitle('stock info!')
+    fig.suptitle('raw price data')
     axs[0].plot(bids)
 
     # x and y arrays must have the same size. ie, the must have the same number of elements!!!!
@@ -81,7 +81,7 @@ def plot_best_actions(bids, bids_deriv1, bids_deriv2, buys_x, buys_y, sells_x, s
     # for trade in trades:
     #     plt.axvline(x=trade)
     plt.ylabel('some numbers')
-    plt.show()
+    # plt.show()
 
 def plot_best_actions_sagol(sg_bids, sg_bids_deriv1, sg_bids_deriv2, buys_x, buys_y, sells_x, sells_y):
     '''
@@ -91,7 +91,7 @@ def plot_best_actions_sagol(sg_bids, sg_bids_deriv1, sg_bids_deriv2, buys_x, buy
     fig, axs = plt.subplots(3)
     fig.set_figheight(8)
     fig.set_figwidth(8)
-    fig.suptitle('stock info!')
+    fig.suptitle('savgol price data')
     # fig(num=1, figsize=(8,6), dpi=80)
     # axs[0].plot(bids)
     axs[0].plot(sg_bids)
@@ -107,7 +107,7 @@ def plot_best_actions_sagol(sg_bids, sg_bids_deriv1, sg_bids_deriv2, buys_x, buy
     # for trade in trades:
     #     plt.axvline(x=trade)
     plt.ylabel('some numbers')
-    plt.show()
+    # plt.show()
 
 
 def test_params(bids, win_length, poly_order, maxmin_range):
@@ -200,15 +200,15 @@ if __name__ == "__main__":
     for item in price_data:
         print(item)
     print(best_params)
-    # plot_best_actions(
-    #     price_data["bids"],
-    #     price_data["bids_d1"],
-    #     price_data["bids_d2"],
-    #     best_params["action_data"]["buys"]["x"],
-    #     best_params["action_data"]["buys"]["y"],
-    #     best_params["action_data"]["sells"]["x"],
-    #     best_params["action_data"]["sells"]["y"]
-    #     )
+    plot_best_actions(
+        price_data["bids"],
+        price_data["bids_d1"],
+        price_data["bids_d2"],
+        best_params["action_data"]["buys"]["x"],
+        best_params["action_data"]["buys"]["y"],
+        best_params["action_data"]["sells"]["x"],
+        best_params["action_data"]["sells"]["y"]
+        )
     plot_best_actions_sagol(
         optimal_sagol_data["sg_bids"],
         optimal_sagol_data["sg_bids_d1"],
@@ -220,3 +220,4 @@ if __name__ == "__main__":
     )
 
     # plot
+    plt.show()
