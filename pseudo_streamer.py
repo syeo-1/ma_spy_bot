@@ -53,6 +53,7 @@ def stream_data():
     axs[0].plot(sg_bids)
     # x and y arrays must have the same size. ie, the must have the same number of elements!!!!
     axs[0].scatter(buys_x,buys_y,c="green",zorder=2)
+    axs[0].scatter(sells_x,sells_y,c="red",zorder=2)
     # test =  list(range(1000))
 
     # axs[1].plot(bids_deriv1)
