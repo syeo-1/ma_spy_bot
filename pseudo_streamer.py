@@ -71,10 +71,8 @@ def plot_best_params():
 
 
 def test_params(win_length, poly_order, maxmin_range):
-    sg_bids = ss.savgol_filter(bids, 99, 3)
-    bids_deriv1 = np.ediff1d(bids)
+    sg_bids = ss.savgol_filter(bids, win_length, poly_order)
     sg_bids_deriv1 = ss.savgol_filter(bids, 99, 3, deriv=1)
-    bids_deriv2 = np.ediff1d(bids_deriv1)
     sg_bids_deriv2 = ss.savgol_filter(bids, 99, 3, deriv=2)
     # plt.plot(bids)
     # plt.plot(sg_bids)
