@@ -44,11 +44,12 @@ def param_guesser():
     print(f"best polyorder: {best_polyorder}")
     print(f"best maxmin range: {best_maxmin_range}")
 
-def plot_params_vs_profit():
+def plot_params_vs_profit(win_lengths, polyorders, maxmin_ranges, profits):
     '''
     takes profit and the parameters and plots 4 line graphs for each piece of data
     '''
 
+    # sort profits, and then sort the other arrays based on the ordering of profits before plotting
 
 
 def plot_best_actions(sg_bids, sg_bids_deriv1, sg_bids_deriv2, buys_x, buys_y, sells_x, sells_y):
@@ -105,6 +106,9 @@ def plot_best_actions_sagol(sg_bids, sg_bids_deriv1, sg_bids_deriv2, buys_x, buy
 
 
 def test_params(win_length, poly_order, maxmin_range):
+    '''
+    test out what parameter values will give maximum profit
+    '''
     sg_bids = ss.savgol_filter(bids, win_length, poly_order)
     sg_bids_deriv1 = ss.savgol_filter(bids, win_length, poly_order, deriv=1)
     sg_bids_deriv2 = ss.savgol_filter(bids, win_length, poly_order, deriv=2)
