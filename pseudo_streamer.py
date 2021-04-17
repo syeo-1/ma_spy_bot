@@ -72,8 +72,8 @@ def plot_best_params():
 
 def test_params(win_length, poly_order, maxmin_range):
     sg_bids = ss.savgol_filter(bids, win_length, poly_order)
-    sg_bids_deriv1 = ss.savgol_filter(bids, 99, 3, deriv=1)
-    sg_bids_deriv2 = ss.savgol_filter(bids, 99, 3, deriv=2)
+    sg_bids_deriv1 = ss.savgol_filter(bids, win_length, poly_order, deriv=1)
+    sg_bids_deriv2 = ss.savgol_filter(bids, win_length, poly_order, deriv=2)
     # plt.plot(bids)
     # plt.plot(sg_bids)
     buy = True
@@ -83,13 +83,13 @@ def test_params(win_length, poly_order, maxmin_range):
     sells_x = []
     sells_y = []
     for i in range(len(bids)):
-        if -0.00001 < sg_bids_deriv1[i] < 0.00001 and sg_bids_deriv2[i] > 0 and buy:
+        if -maxmin_range < sg_bids_deriv1[i] < maxmin_range and sg_bids_deriv2[i] > 0 and buy:
             print(f'BUY: {i}')
             buys_x.append(i)
             buys_y.append(bids[i])
             buy = False
             sell = True
-        elif -0.00001 < sg_bids_deriv1[i] < 0.00001 and sg_bids_deriv2[i] < 0 and sell:
+        elif -maxmin_range < sg_bids_deriv1[i] < maxmin_range and sg_bids_deriv2[i] < 0 and sell:
             print(f'SELL {i}')
             sells_x.append(i)
             sells_y.append(bids[i])
