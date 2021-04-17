@@ -11,16 +11,32 @@ import scipy.signal as ss
 # the window length param of sagol
 # whatever that 3rd parameter of sagol is
 
-initial_balance = 400_000
+
+
 def param_guesser():
+    initial_balance = 400_000
+    max_profit = -inf
     maxmin_range = 0.0001
+    best_polyorder = None
+    best_window_length = None
+    best_maxmin_range = None
     # if polyorder is one less than win_length, then its a perfect fit, which is not wanted
+    iteration = 1
     for win_length in range(3, 200):
+        print(f"current iteration: {iteration}")
         for poly_order in range(1, winlength-1):
             while maxmin_range < 1:
-                test_params(win_length, poly_order, maxmin_range)
+                profit = test_params(win_length, poly_order, maxmin_range, initial_balance)
+                if profit > max_profit:
+                    max_profit = profit
+                    best_window_length = win_length
+                    best_polyorder = polyorder
+                    best_maxmin_range = maxmin_range
                 maxmin_range+=0.0001
-
+        iteration += 1
+    print(f"best window length: {best_window_length}")
+    print(f"best polyorder: {best_polyorder}")
+    print(f"best maxmin range: {best_maxmin_range}")
 
 
 def stream_data():
