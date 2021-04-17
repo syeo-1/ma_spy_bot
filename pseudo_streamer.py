@@ -175,13 +175,13 @@ def process_bid_data():
         "bids_d2": bids_derv2
     }
     
-def process_optimal_sagol_data(winlength, polyorder):
+def process_optimal_sagol_data(bids, winlength, polyorder):
     '''
     obtain savgol arrays using the optimal calculated parameters for max profit
     '''
-    sg_bids = ss.savgol_filter(bids, win_length, poly_order)
-    sg_bids_deriv1 = ss.savgol_filter(bids, win_length, poly_order, deriv=1)
-    sg_bids_deriv2 = ss.savgol_filter(bids, win_length, poly_order, deriv=2)
+    sg_bids = ss.savgol_filter(bids, winlength, polyorder)
+    sg_bids_deriv1 = ss.savgol_filter(bids, winlength, polyorder, deriv=1)
+    sg_bids_deriv2 = ss.savgol_filter(bids, winlength, polyorder, deriv=2)
 
     return {
         "sg_bids": sg_bids,
@@ -195,21 +195,28 @@ if __name__ == "__main__":
     # stream_data()
     price_data = process_bid_data()
     best_params = param_guesser(price_data["bids"])
+    optimal_sagol_data = process_optimal_sagol_data(price_data["bids"], best_params["win_length"], best_params["polyorder"])
     # print(price_data)
     for item in price_data:
         print(item)
     print(best_params)
-    plot_best_actions(
-        price_data["bids"],
-        price_data["bids_d1"],
-        price_data["bids_d2"],
+    # plot_best_actions(
+    #     price_data["bids"],
+    #     price_data["bids_d1"],
+    #     price_data["bids_d2"],
+    #     best_params["action_data"]["buys"]["x"],
+    #     best_params["action_data"]["buys"]["y"],
+    #     best_params["action_data"]["sells"]["x"],
+    #     best_params["action_data"]["sells"]["y"]
+    #     )
+    plot_best_actions_sagol(
+        optimal_sagol_data["sg_bids"],
+        optimal_sagol_data["sg_bids_d1"],
+        optimal_sagol_data["sg_bids_d2"],
         best_params["action_data"]["buys"]["x"],
         best_params["action_data"]["buys"]["y"],
         best_params["action_data"]["sells"]["x"],
         best_params["action_data"]["sells"]["y"]
-        )
-    plot_best_actions_sagol(
-
     )
 
     # plot
