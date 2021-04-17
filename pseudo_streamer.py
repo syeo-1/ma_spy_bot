@@ -175,6 +175,17 @@ def process_bid_data():
         "bids_d2": bids_derv2
     }
     
+def process_optimal_sagol_data(winlength, polyorder):
+    sg_bids = ss.savgol_filter(bids, win_length, poly_order)
+    sg_bids_deriv1 = ss.savgol_filter(bids, win_length, poly_order, deriv=1)
+    sg_bids_deriv2 = ss.savgol_filter(bids, win_length, poly_order, deriv=2)
+
+    return {
+        "sg_bids": sg_bids,
+        "sg_bids_d1": sg_bids_deriv1,
+        "sg_bids_d2": sg_bids_deriv2
+    }
+
 
 
 if __name__ == "__main__":
@@ -194,5 +205,8 @@ if __name__ == "__main__":
         best_params["action_data"]["sells"]["x"],
         best_params["action_data"]["sells"]["y"]
         )
+    plot_best_actions_sagol(
+
+    )
 
     # plot
