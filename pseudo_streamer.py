@@ -60,7 +60,7 @@ def plot_params_vs_profit(win_lengths, polyorders, maxmin_ranges, profits):
     # sort profits, and then sort the other arrays based on the ordering of profits before plotting
     pass
 
-def plot_best_actions(sg_bids, sg_bids_deriv1, sg_bids_deriv2, buys_x, buys_y, sells_x, sells_y):
+def plot_best_actions(bids, bids_deriv1, bids_deriv2, buys_x, buys_y, sells_x, sells_y):
     '''
     plot the optimal buys and sells on the price and price derivative graphs
     '''
