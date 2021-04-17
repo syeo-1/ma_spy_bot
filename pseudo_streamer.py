@@ -11,6 +11,13 @@ import scipy.signal as ss
 # the window length param of sagol
 # whatever that 3rd parameter of sagol is
 
+# create global data variable for all functions to use
+bids = []
+i = 0
+for data in open(config.RECORDED_DATA, "r"):
+    data = json.loads(data)
+
+    bids.append(data['data']['p'])
 
 
 def param_guesser():
@@ -41,12 +48,7 @@ def param_guesser():
 
 def stream_data():
     # i = 0
-    bids = []
-    i = 0
-    for data in open(config.RECORDED_DATA, "r"):
-        data = json.loads(data)
 
-        bids.append(data['data']['p'])
         # asks.append(data['data']['P'])
 
         # print(f"bid: {data['data']['p']} ask: {data['data']['P']}")
