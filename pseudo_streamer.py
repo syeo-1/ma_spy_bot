@@ -21,7 +21,7 @@ for data in open(config.RECORDED_DATA, "r"):
 
 
 def param_guesser():
-    initial_balance = 400_000
+    # initial_balance = 400_000
     max_profit = -inf
     maxmin_range = 0.0001
     best_polyorder = None
@@ -33,7 +33,7 @@ def param_guesser():
         print(f"current iteration: {iteration}")
         for poly_order in range(1, winlength-1):
             while maxmin_range < 1:
-                profit = test_params(win_length, poly_order, maxmin_range, initial_balance)
+                profit = test_params(win_length, poly_order, maxmin_range)
                 if profit > max_profit:
                     max_profit = profit
                     best_window_length = win_length
@@ -46,16 +46,7 @@ def param_guesser():
     print(f"best maxmin range: {best_maxmin_range}")
 
 
-def stream_data():
-    # i = 0
-
-        # asks.append(data['data']['P'])
-
-        # print(f"bid: {data['data']['p']} ask: {data['data']['P']}")
-        # current_date = datetime.datetime.fromtimestamp(float(data["data"]["t"])/1e9)
-        i+=1
-        # if i == 100:
-        #     break
+def test_params(win_length, poly_order, maxmin_range):
     sg_bids = ss.savgol_filter(bids, 99, 3)
     bids_deriv1 = np.ediff1d(bids)
     sg_bids_deriv1 = ss.savgol_filter(bids, 99, 3, deriv=1)
