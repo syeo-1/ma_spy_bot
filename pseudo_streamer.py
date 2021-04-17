@@ -47,8 +47,12 @@ def stream_data():
             sells_y.append(bids[i])
             sell = False
             buy = True
+    # plt.figure(figsize=(8,6))
     fig, axs = plt.subplots(3)
+    fig.set_figheight(8)
+    fig.set_figwidth(8)
     fig.suptitle('stock info!')
+    # fig(num=1, figsize=(8,6), dpi=80)
     # axs[0].plot(bids)
     axs[0].plot(sg_bids)
     # x and y arrays must have the same size. ie, the must have the same number of elements!!!!
