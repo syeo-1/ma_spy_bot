@@ -6,6 +6,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal as ss
 
+# the parameters I need to mess with
+# the range that a local min/max should be detected
+# the window length param of sagol
+# whatever that 3rd parameter of sagol is
+
+initial_balance = 400_000
+def param_guesser():
+    maxmin_range = 0.0001
+    # if polyorder is one less than win_length, then its a perfect fit, which is not wanted
+    for win_length in range(3, 200):
+        for poly_order in range(1, winlength-1):
+            while maxmin_range < 1:
+                test_params(win_length, poly_order, maxmin_range)
+                maxmin_range+=0.0001
+
+
+
 def stream_data():
     # i = 0
     bids = []
