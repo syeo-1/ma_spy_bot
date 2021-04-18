@@ -15,6 +15,9 @@ import math
 
 
 def param_guesser(bids):
+    '''
+    tries guessing which parameters will maximize profits for the sagol filter
+    '''
     # initial_balance = 400_000
     max_profit = -math.inf
     # maxmin_range = 0.0001
