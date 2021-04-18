@@ -194,35 +194,63 @@ def process_optimal_sagol_data(bids, winlength, polyorder):
         "sg_bids_d2": sg_bids_deriv2
     }
 
+def plot_specific_parameters(price_data, winlength, polyorder, maxmin_range):
+    '''
+    plot graph sets for the given parameters
+    '''
+    params = test_params(price_data["bids"], winlength, polyorder, maxmin_range)
+    sagol_data = process_optimal_sagol_data(price_data["bids"], winlength, polyorder)
+    plot_best_actions(
+        price_data["bids"],
+        price_data["bids_d1"],
+        price_data["bids_d2"],
+        params["buys"]["x"],
+        params["buys"]["y"],
+        params["sells"]["x"],
+        params["sells"]["y"]
+    )
+    plot_best_actions_sagol(
+        sagol_data["sg_bids"],
+        sagol_data["sg_bids_d1"],
+        sagol_data["sg_bids_d2"],
+        params["buys"]["x"],
+        params["buys"]["y"],
+        params["sells"]["x"],
+        params["sells"]["y"]
+    )
+    print(f"profit: {params['profit']}")
+
+
 
 
 if __name__ == "__main__":
     # stream_data()
     price_data = process_bid_data()
-    best_params = param_guesser(price_data["bids"])
-    optimal_sagol_data = process_optimal_sagol_data(price_data["bids"], best_params["win_length"], best_params["polyorder"])
-    # print(price_data)
-    for item in price_data:
-        print(item)
-    print(best_params)
-    plot_best_actions(
-        price_data["bids"],
-        price_data["bids_d1"],
-        price_data["bids_d2"],
-        best_params["action_data"]["buys"]["x"],
-        best_params["action_data"]["buys"]["y"],
-        best_params["action_data"]["sells"]["x"],
-        best_params["action_data"]["sells"]["y"]
-        )
-    plot_best_actions_sagol(
-        optimal_sagol_data["sg_bids"],
-        optimal_sagol_data["sg_bids_d1"],
-        optimal_sagol_data["sg_bids_d2"],
-        best_params["action_data"]["buys"]["x"],
-        best_params["action_data"]["buys"]["y"],
-        best_params["action_data"]["sells"]["x"],
-        best_params["action_data"]["sells"]["y"]
-    )
+    # best_params = param_guesser(price_data["bids"])
+    # optimal_sagol_data = process_optimal_sagol_data(price_data["bids"], best_params["win_length"], best_params["polyorder"])
+    # # print(price_data)
+    # for item in price_data:
+    #     print(item)
+    # print(best_params)
+    # plot_best_actions(
+    #     price_data["bids"],
+    #     price_data["bids_d1"],
+    #     price_data["bids_d2"],
+    #     best_params["action_data"]["buys"]["x"],
+    #     best_params["action_data"]["buys"]["y"],
+    #     best_params["action_data"]["sells"]["x"],
+    #     best_params["action_data"]["sells"]["y"]
+    #     )
+    # plot_best_actions_sagol(
+    #     optimal_sagol_data["sg_bids"],
+    #     optimal_sagol_data["sg_bids_d1"],
+    #     optimal_sagol_data["sg_bids_d2"],
+    #     best_params["action_data"]["buys"]["x"],
+    #     best_params["action_data"]["buys"]["y"],
+    #     best_params["action_data"]["sells"]["x"],
+    #     best_params["action_data"]["sells"]["y"]
+    # )
 
+    plot_specific_parameters(price_data, 99, 4, 0.009)
     # plot
     plt.show()
