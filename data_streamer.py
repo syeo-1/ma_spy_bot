@@ -24,7 +24,7 @@ def authenticate_connection(ws):
     channel_data = {
         "action": "listen",
         "data": { 
-            "streams": [f"Q.{config.STOCK_NAME}"]
+            "streams": [f"T.{config.STOCK_NAME}"]
         }
     }
     return_value2 = ws.send(json.dumps(channel_data))
@@ -36,7 +36,7 @@ def stream_data(ws, msg):
     global fresh_minute
     print(dict_msg)
     # only process stock ticker data
-    if dict_msg["stream"] == f"Q.{config.STOCK_NAME}":
+    if dict_msg["stream"] == f"T.{config.STOCK_NAME}":
         # print(dict_msg)
         creator.process(msg)
         # process(dict_msg)
