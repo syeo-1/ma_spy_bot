@@ -60,12 +60,27 @@ def param_guesser(bids):
         "action_data": action_data
     }
 
-def plot_params_vs_profits(profit_arr, *argv):
+def plot_params_vs_profits(profit_arr, **params):
     '''
     plots profits against parameters in subplots
     '''
-    for item in argv:
-        print(item)
+
+    # initialize a new graph
+    fig, axs = plt.subplots(len(params))
+    fig.set_figheight(5)
+    fig.set_figwidth(5)
+    fig.suptitle('Profits VS Params')
+
+
+    # plot each parameter against profits
+    plot_num = 0
+    for param, param_data in params.items():
+        # print("{} {}".format(param, data))
+        axs[plot_num].set_title(param)
+        axs[plot_num].plot(profit_arr)
+        axs[plot_num].plot(param_data)
+        plot_num += 1
+
 
 
 def param_trend_finder():
@@ -263,5 +278,10 @@ if __name__ == "__main__":
     # plot_specific_parameters(price_data, 99, 4, 0.009)
     # plot
 
-    create_generic_subplots(1,2,3,4,5,6)
+    profits = [7,8,9,10]
+    wlengths = [1,2,3,4]
+    porders = [2,3,4,5]
+    mami_ranges = [3,4,5,6]
+
+    plot_params_vs_profits(profits, winlengths=wlengths, polyorders=porders, maxmin_ranges=mami_ranges)
     plt.show()
