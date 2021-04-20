@@ -60,20 +60,13 @@ def param_guesser(bids):
         "action_data": action_data
     }
 
-def plot_params_vs_profit(win_lengths, polyorders, maxmin_ranges, profits):
+def plot_params_vs_profits(profit_arr, *argv):
     '''
-    takes profit and the parameters and plots 4 line graphs for each piece of data
+    plots profits against parameters in subplots
     '''
+    for item in argv:
+        print(item)
 
-    # sort profits, and then sort the other arrays based on the ordering of profits before plotting
-    pass
-
-def create_generic_subplots(*argv):
-    '''
-    takes in varable number array arguments and plots them against each other on same graph in a subplot
-    '''
-
-    pass
 
 def param_trend_finder():
     '''
@@ -269,4 +262,6 @@ if __name__ == "__main__":
 
     # plot_specific_parameters(price_data, 99, 4, 0.009)
     # plot
+
+    create_generic_subplots(1,2,3,4,5,6)
     plt.show()
