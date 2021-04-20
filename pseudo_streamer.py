@@ -68,6 +68,13 @@ def plot_params_vs_profit(win_lengths, polyorders, maxmin_ranges, profits):
     # sort profits, and then sort the other arrays based on the ordering of profits before plotting
     pass
 
+def create_generic_subplots(*argv):
+    '''
+    takes in varable number array arguments and plots them against each other on same graph in a subplot
+    '''
+
+    pass
+
 def param_trend_finder():
     '''
     finds relationships between profit and parameters
@@ -260,6 +267,6 @@ if __name__ == "__main__":
     #     best_params["action_data"]["sells"]["y"]
     # )
 
-    plot_specific_parameters(price_data, 99, 4, 0.009)
+    # plot_specific_parameters(price_data, 99, 4, 0.009)
     # plot
     plt.show()
