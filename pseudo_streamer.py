@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal as ss
 import math
+from itertools import tee
 
 # the parameters I need to mess with
 # the range that a local min/max should be detected
@@ -60,26 +61,25 @@ def param_guesser(bids):
         "action_data": action_data
     }
 
-def plot_params_vs_profits(profit_arr, **params):
+def plot_params_vs_profits(plots_per_graph, *profit_and_params):
     '''
     plots profits against parameters in subplots
     '''
 
     # initialize a new graph
-    fig, axs = plt.subplots(len(params))
+    fig, axs = plt.subplots(len(profit_and_params)//2)
     fig.set_figheight(5)
     fig.set_figwidth(5)
     fig.suptitle('Profits VS Params')
 
+    subplot_titles = ['winlengths', 'polyorders', 'maxminranges']
 
+    
     # plot each parameter against profits
-    plot_num = 0
-    for param, param_data in params.items():
-        # print("{} {}".format(param, data))
-        axs[plot_num].set_title(param)
-        axs[plot_num].plot(profit_arr)
-        axs[plot_num].plot(param_data)
-        plot_num += 1
+    for plot_num in range(len(profit_and_params)//2):
+        axs[plot_num].set_title(subplot_titles[plot_num])
+        axs[plot_num].plot(profit_and_params[plot_num*plots_per_graph])
+        axs[plot_num].plot(profit_and_params[(plot_num*plots_per_graph)+1])
 
 
 
@@ -278,10 +278,17 @@ if __name__ == "__main__":
     # plot_specific_parameters(price_data, 99, 4, 0.009)
     # plot
 
-    profits = [7,8,9,10]
+    win_profits = [26,11,13,14]
+    p_profits = [17,12,90,30]
+    mm_profits = [7,8,9,10]
     wlengths = [1,2,3,4]
     porders = [2,3,4,5]
     mami_ranges = [3,4,5,6]
 
-    plot_params_vs_profits(profits, winlengths=wlengths, polyorders=porders, maxmin_ranges=mami_ranges)
+    plot_params_vs_profits(
+        2,
+        win_profits, wlengths, 
+        p_profits, porders,
+        mm_profits, mami_ranges
+    )
     plt.show()
