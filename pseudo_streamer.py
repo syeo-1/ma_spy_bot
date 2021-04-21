@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import scipy.signal as ss
 import math
 from itertools import tee
+from profile_decorator import profiler
 
 # the parameters I need to mess with
 # the range that a local min/max should be detected
@@ -14,7 +15,7 @@ from itertools import tee
 # whatever that 3rd parameter of sagol is
 
 
-
+@profiler
 def param_guesser(bids):
     '''
     tries guessing which parameters will maximize profits for the sagol filter
@@ -40,7 +41,7 @@ def param_guesser(bids):
                     best_polyorder = polyorder
                     best_maxmin_range = maxmin_range
                 # maxmin_range += 0.0001
-                print(maxmin_range)
+                # print(maxmin_range)
         # break
         # maxmin_range = 0.0001
         # iteration += 1
@@ -51,9 +52,9 @@ def param_guesser(bids):
     # test_maxmin_range = 0.0001
     # action_data = test_params(bids, test_win_length, test_polyorder, test_maxmin_range)
     # print(action_data)
-    print(f"best window length: {best_window_length}")
-    print(f"best polyorder: {best_polyorder}")
-    print(f"best maxmin range: {best_maxmin_range}")
+    # print(f"best window length: {best_window_length}")
+    # print(f"best polyorder: {best_polyorder}")
+    # print(f"best maxmin range: {best_maxmin_range}")
     return {
         "win_length": best_window_length,
         "polyorder": best_polyorder,
@@ -329,34 +330,34 @@ def check_param_trends(prices):
     plt.show()
 
 
-
-if __name__ == "__main__":
+@profiler
+def main():
     # stream_data()
     price_data = process_bid_data()
-    # best_params = param_guesser(price_data["bids"])
-    # optimal_sagol_data = process_optimal_sagol_data(price_data["bids"], best_params["win_length"], best_params["polyorder"])
+    best_params = param_guesser(price_data["bids"])
+    optimal_sagol_data = process_optimal_sagol_data(price_data["bids"], best_params["win_length"], best_params["polyorder"])
     # # print(price_data)
     # for item in price_data:
     #     print(item)
     # print(best_params)
-    # plot_best_actions(
-    #     price_data["bids"],
-    #     price_data["bids_d1"],
-    #     price_data["bids_d2"],
-    #     best_params["action_data"]["buys"]["x"],
-    #     best_params["action_data"]["buys"]["y"],
-    #     best_params["action_data"]["sells"]["x"],
-    #     best_params["action_data"]["sells"]["y"]
-    #     )
-    # plot_best_actions_sagol(
-    #     optimal_sagol_data["sg_bids"],
-    #     optimal_sagol_data["sg_bids_d1"],
-    #     optimal_sagol_data["sg_bids_d2"],
-    #     best_params["action_data"]["buys"]["x"],
-    #     best_params["action_data"]["buys"]["y"],
-    #     best_params["action_data"]["sells"]["x"],
-    #     best_params["action_data"]["sells"]["y"]
-    # )
+    plot_best_actions(
+        price_data["bids"],
+        price_data["bids_d1"],
+        price_data["bids_d2"],
+        best_params["action_data"]["buys"]["x"],
+        best_params["action_data"]["buys"]["y"],
+        best_params["action_data"]["sells"]["x"],
+        best_params["action_data"]["sells"]["y"]
+        )
+    plot_best_actions_sagol(
+        optimal_sagol_data["sg_bids"],
+        optimal_sagol_data["sg_bids_d1"],
+        optimal_sagol_data["sg_bids_d2"],
+        best_params["action_data"]["buys"]["x"],
+        best_params["action_data"]["buys"]["y"],
+        best_params["action_data"]["sells"]["x"],
+        best_params["action_data"]["sells"]["y"]
+    )
 
     # plot_specific_parameters(price_data, 99, 4, 0.009)
     # plot
@@ -367,6 +368,11 @@ if __name__ == "__main__":
     # wlengths = [1,2,3,4]
     # porders = [2,3,4,5]
     # mami_ranges = [3,4,5,6]
-    check_param_trends(price_data['bids'])
+    # check_param_trends(price_data['bids'])
 
-    plt.show()
+    # plt.show()
+
+
+
+if __name__ == "__main__":
+    main()
