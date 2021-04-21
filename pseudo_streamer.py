@@ -285,6 +285,7 @@ def plot_specific_parameters(price_data, winlength, polyorder, maxmin_range):
     '''
     plot graph sets for the given parameters
     '''
+    
     params = test_params(price_data["bids"], winlength, polyorder, maxmin_range)
     sagol_data = process_optimal_sagol_data(price_data["bids"], winlength, polyorder)
     plot_best_actions(
@@ -307,6 +308,25 @@ def plot_specific_parameters(price_data, winlength, polyorder, maxmin_range):
     )
     print(f"profit: {params['profit']}")
 
+
+def check_param_trends(prices):
+    '''
+    plots out possible trends between savgol filter parameters values and profits
+    '''
+
+    param_names = ['window_length', 'polyorder', 'maxmin_range']
+    windowlength_trends = param_trend_data(price_data['bids'], param_names[0])
+    polyorder_trends = param_trend_data(price_data['bids'], param_names[1])
+    maxminrange_trends = param_trend_data(price_data['bids'], param_names[2])
+
+
+    plot_params_vs_profits(
+        2,
+        windowlength_trends['profits'], windowlength_trends['param'], 
+        polyorder_trends['profits'], polyorder_trends['param'], 
+        maxminrange_trends['profits'], maxminrange_trends['param']
+    )
+    plt.show()
 
 
 
@@ -347,20 +367,6 @@ if __name__ == "__main__":
     # wlengths = [1,2,3,4]
     # porders = [2,3,4,5]
     # mami_ranges = [3,4,5,6]
+    check_param_trends(price_data['bids'])
 
-    param_names = ['window_length', 'polyorder', 'maxmin_range']
-    windowlength_trends = param_trend_data(price_data['bids'], param_names[0])
-    # print(windowlength_trends)
-    polyorder_trends = param_trend_data(price_data['bids'], param_names[1])
-    # print(polyorder_trends)
-    maxminrange_trends = param_trend_data(price_data['bids'], param_names[2])
-
-
-    print(maxminrange_trends)
-    plot_params_vs_profits(
-        2,
-        windowlength_trends['profits'], windowlength_trends['param'], 
-        polyorder_trends['profits'], polyorder_trends['param'], 
-        maxminrange_trends['profits'], maxminrange_trends['param']
-    )
     plt.show()
