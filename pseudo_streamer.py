@@ -26,7 +26,7 @@ def param_guesser(bids):
     best_polyorder = None
     best_window_length = None
     best_maxmin_range = None
-    maxmin_ranges = np.linspace(0,0.01,10,endpoint=False)
+    maxmin_ranges = np.linspace(0,0.01,30,endpoint=False)
     # if polyorder is one less than win_length, then its a perfect fit, which is not wanted
     # iteration = 1
     for win_length in range(99, 106, 2):
@@ -207,7 +207,7 @@ def test_params(bids, win_length, poly_order, maxmin_range):
     '''
     test out what parameter values will give maximum profit
     '''
-    sg_bids = ss.savgol_filter(bids, win_length, poly_order)
+    # sg_bids = ss.savgol_filter(bids, win_length, poly_order)
     sg_bids_deriv1 = ss.savgol_filter(bids, win_length, poly_order, deriv=1)
     sg_bids_deriv2 = ss.savgol_filter(bids, win_length, poly_order, deriv=2)
     # plt.plot(bids)
@@ -221,21 +221,25 @@ def test_params(bids, win_length, poly_order, maxmin_range):
     profit = 0
     current_buy_price = None
     for i in range(len(bids)):
+        # print(i)
+        # profit+=1
         if -maxmin_range < sg_bids_deriv1[i] < maxmin_range and sg_bids_deriv2[i] > 0 and buy:
-            # print(f'BUY: {i}')
-            buys_x.append(i)
-            buys_y.append(bids[i])
-            current_buy_price = bids[i]
-            buy = False
-            sell = True
+            continue
+    #         # print(f'BUY: {i}')
+            # buys_x.append(i)
+    #         buys_y.append(bids[i])
+    #         current_buy_price = bids[i]
+    #         buy = False
+    #         sell = True
         elif -maxmin_range < sg_bids_deriv1[i] < maxmin_range and sg_bids_deriv2[i] < 0 and sell:
-            # print(f'SELL {i}')
-            sells_x.append(i)
-            sells_y.append(bids[i])
-            current_sell_price = bids[i]
-            profit += current_sell_price - current_buy_price
-            sell = False
-            buy = True
+            continue
+    #         # print(f'SELL {i}')
+            # sells_x.append(i)
+    #         sells_y.append(bids[i])
+    #         current_sell_price = bids[i]
+    #         profit += current_sell_price - current_buy_price
+    #         sell = False
+    #         buy = True
 
     return {
         "profit": profit,
@@ -330,34 +334,34 @@ def check_param_trends(prices):
     plt.show()
 
 
-@profiler
+# @profiler
 def main():
     # stream_data()
     price_data = process_bid_data()
     best_params = param_guesser(price_data["bids"])
-    optimal_sagol_data = process_optimal_sagol_data(price_data["bids"], best_params["win_length"], best_params["polyorder"])
+    # optimal_sagol_data = process_optimal_sagol_data(price_data["bids"], best_params["win_length"], best_params["polyorder"])
     # # print(price_data)
     # for item in price_data:
     #     print(item)
     # print(best_params)
-    plot_best_actions(
-        price_data["bids"],
-        price_data["bids_d1"],
-        price_data["bids_d2"],
-        best_params["action_data"]["buys"]["x"],
-        best_params["action_data"]["buys"]["y"],
-        best_params["action_data"]["sells"]["x"],
-        best_params["action_data"]["sells"]["y"]
-        )
-    plot_best_actions_sagol(
-        optimal_sagol_data["sg_bids"],
-        optimal_sagol_data["sg_bids_d1"],
-        optimal_sagol_data["sg_bids_d2"],
-        best_params["action_data"]["buys"]["x"],
-        best_params["action_data"]["buys"]["y"],
-        best_params["action_data"]["sells"]["x"],
-        best_params["action_data"]["sells"]["y"]
-    )
+    # plot_best_actions(
+    #     price_data["bids"],
+    #     price_data["bids_d1"],
+    #     price_data["bids_d2"],
+    #     best_params["action_data"]["buys"]["x"],
+    #     best_params["action_data"]["buys"]["y"],
+    #     best_params["action_data"]["sells"]["x"],
+    #     best_params["action_data"]["sells"]["y"]
+    #     )
+    # plot_best_actions_sagol(
+    #     optimal_sagol_data["sg_bids"],
+    #     optimal_sagol_data["sg_bids_d1"],
+    #     optimal_sagol_data["sg_bids_d2"],
+    #     best_params["action_data"]["buys"]["x"],
+    #     best_params["action_data"]["buys"]["y"],
+    #     best_params["action_data"]["sells"]["x"],
+    #     best_params["action_data"]["sells"]["y"]
+    # )
 
     # plot_specific_parameters(price_data, 99, 4, 0.009)
     # plot
