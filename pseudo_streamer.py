@@ -285,7 +285,7 @@ def plot_specific_parameters(price_data, winlength, polyorder, maxmin_range):
     '''
     plot graph sets for the given parameters
     '''
-    
+
     params = test_params(price_data["bids"], winlength, polyorder, maxmin_range)
     sagol_data = process_optimal_sagol_data(price_data["bids"], winlength, polyorder)
     plot_best_actions(
@@ -315,9 +315,9 @@ def check_param_trends(prices):
     '''
 
     param_names = ['window_length', 'polyorder', 'maxmin_range']
-    windowlength_trends = param_trend_data(price_data['bids'], param_names[0])
-    polyorder_trends = param_trend_data(price_data['bids'], param_names[1])
-    maxminrange_trends = param_trend_data(price_data['bids'], param_names[2])
+    windowlength_trends = param_trend_data(prices, param_names[0])
+    polyorder_trends = param_trend_data(prices, param_names[1])
+    maxminrange_trends = param_trend_data(prices, param_names[2])
 
 
     plot_params_vs_profits(
