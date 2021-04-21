@@ -83,11 +83,74 @@ def plot_params_vs_profits(plots_per_graph, *profit_and_params):
 
 
 
-def param_trend_finder():
+def param_trend_data(prices, param_name):
     '''
-    finds relationships between profit and parameters
+    gets data to find trends for params vs profit
     '''
-    pass
+    maxmin_ranges = [0.009]
+    end_win_length = 99
+    end_polyorder = 4
+
+    profit_array = []
+    
+    # vary the given param_name
+    # start_maxmin_range = end_maxmin_range
+    start_win_length = end_win_length
+    start_polyorder = end_polyorder
+    
+    if param_name == 'window_length':
+        start_win_length = 5
+        start_polyorder = end_polyorder = 3
+        end_win_length = 999
+    elif param_name == 'polyorder':
+        start_polyorder = 3
+        start_win_length = end_win_length = 199
+        end_polyorder = 100
+    elif param_name == 'maxmin_range':
+        maxmin_ranges = np.linspace(0,0.1,1000,endpoint=False)
+
+    # then triple for loop. only do stuff if start != end
+    for win_length in range(start_win_length, end_win_length+1, 2):
+        # print(win_length)
+        for polyorder in range(start_polyorder, end_polyorder+1):
+            # while maxmin_range < 1:
+            # print(polyorder)
+            for maxmin_range in maxmin_ranges:
+                print(maxmin_range)
+                action_data = test_params(prices, win_length, polyorder, maxmin_range)
+                profit_array.append(action_data['profit'])
+                # print(profit_array)
+                # print(start_maxmin_range)
+                # if param_name == 'maxmin_range':
+                #     start_maxmin_range += 0.0001
+                # else:
+                #     break
+                # print(maxmin_range)
+        
+
+
+    # do stuff with the ranges or something
+    if param_name == 'window_length':
+        return {
+            "param": list(range(start_win_length, end_win_length, 2)),
+            "profits": profit_array
+        }
+    elif param_name == 'polyorder':
+        return {
+            "param": list(range(start_polyorder, end_polyorder)),
+            "profits": profit_array
+        }
+    elif param_name == 'maxmin_range':
+        return {
+            "param": np.linspace(0,0.1,1000,endpoint=False),
+            "profits": profit_array
+        }
+    else:
+        print("didn't give a valid parameter name!!!")
+        exit(1)
+
+
+
 
 def plot_best_actions(bids, bids_deriv1, bids_deriv2, buys_x, buys_y, sells_x, sells_y):
     '''
@@ -278,17 +341,26 @@ if __name__ == "__main__":
     # plot_specific_parameters(price_data, 99, 4, 0.009)
     # plot
 
-    win_profits = [26,11,13,14]
-    p_profits = [17,12,90,30]
-    mm_profits = [7,8,9,10]
-    wlengths = [1,2,3,4]
-    porders = [2,3,4,5]
-    mami_ranges = [3,4,5,6]
+    # win_profits = [26,11,13,14]
+    # p_profits = [17,12,90,30]
+    # mm_profits = [7,8,9,10]
+    # wlengths = [1,2,3,4]
+    # porders = [2,3,4,5]
+    # mami_ranges = [3,4,5,6]
 
+    param_names = ['window_length', 'polyorder', 'maxmin_range']
+    windowlength_trends = param_trend_data(price_data['bids'], param_names[0])
+    # print(windowlength_trends)
+    polyorder_trends = param_trend_data(price_data['bids'], param_names[1])
+    # print(polyorder_trends)
+    maxminrange_trends = param_trend_data(price_data['bids'], param_names[2])
+
+
+    print(maxminrange_trends)
     plot_params_vs_profits(
         2,
-        win_profits, wlengths, 
-        p_profits, porders,
-        mm_profits, mami_ranges
+        windowlength_trends['profits'], windowlength_trends['param'], 
+        polyorder_trends['profits'], polyorder_trends['param'], 
+        maxminrange_trends['profits'], maxminrange_trends['param']
     )
     plt.show()
