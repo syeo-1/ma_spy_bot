@@ -1,24 +1,6 @@
 '''streaming symbol meanings: https://alpaca.markets/docs/api-documentation/api-v2/market-data/alpaca-data-api-v1/streaming/'''
 import json
 
-def process_bid_data():
-    '''
-    process bid price data for all functions to use
-    '''
-    bids = []
-    for data in open(config.RECORDED_DATA, "r"):
-        data = json.loads(data)
-
-        bids.append(data['data']['p'])
-    bids_derv1 = np.ediff1d(bids)
-    bids_derv2 = np.ediff1d(bids_derv1)
-
-    return {
-        "bids": bids,
-        "bids_d1": bids_derv1,
-        "bids_d2": bids_derv2
-    }
-
 def jsonify_recorded_data(filename):
     '''turns recorded text data from a file and returns a list of dictionaries'''
     processed_data = []
