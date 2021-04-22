@@ -43,6 +43,10 @@ def get_recorded_data(data, key):
     
 
 # demo/test below
-a = jsonify_recorded_data("GME_quote_data.txt")
-b = get_recorded_data(a, 'P')
-print(b)
+# the below will only run if the file is being called directly!
+# ie. 'python3 processing.py'
+# if the below is being imported, then below will not run!
+if __name__ == '__main__':
+    a = jsonify_recorded_data("GME_quote_data.txt")
+    b = get_recorded_data(a, 'P')
+    print(b)
