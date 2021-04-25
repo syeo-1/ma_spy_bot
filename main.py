@@ -253,15 +253,47 @@ def main():
         print('invalid run_type given. Please give either test or prod')
         exit(1)
 
-def get_stream_data_prices(prices):
-    test_deque = deque(maxlen=200)
-    result = []
+def get_diff(first, second):
+    return second - first
+
+def get_stream_data_prices(prices, filterlength, maxmin_range):
+    test_deque = deque(maxlen=filterlength)
+    d_calculations = deque(maxlen=3)
+    d1_deque = deque(maxlen=2)
+    d1 = None
+    d2 = None
+    buy = True
+    sell = False
+    profit = 0
+
+    currentBuy = None
+    # result = []
     for price in prices:
         test_deque.append(price)
-        if len(test_deque) == 200:
-            avg = sum(test_deque)/200
-            result.append(avg)
-    return result
+        if len(test_deque) == filterlength:
+            avg = sum(test_deque)/filterlength
+            # result.append(avg)
+            d_calculations.append(avg)
+            if len(d_calculations) == 3:
+                for i in range(2):
+                    d1_deque.append(get_diff(d_calculations[i], d_calculations[i+1]))
+                d1 = d1_deque[1]
+                d2 = get_diff(d1_deque[0], d1_deque[1])
+
+                if -maxmin_range < d1 < maxmin_range and d2 > 0 and buy:
+                    currentBuy = price
+                    buy = False
+                    sell = True
+                elif -maxmin_range < d1 < maxmin_range and d2 < 0 and sell:
+                    currentSell = price
+                    profit += currentSell - currentBuy
+                    buy = True
+                    sell = False
+                
+    # print(profit)
+    return profit
+
+    # return result
             
             
             
@@ -274,23 +306,45 @@ if __name__ == '__main__':
     fig, axs = plt.subplots(3)
     # fig.set_figheight(8)
     # fig.set_figwidth(8)
-    a = []
-    for msg in processing.jsonify_recorded_data('GME_quote_data.txt'):
-        a.append(msg['data']['p'])
+    ''''''
+    # a = []
+    # for msg in processing.jsonify_recorded_data('GME_quote_data.txt'):
+    #     a.append(msg['data']['p'])
     trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data('GME_quote_data.txt')]
-    # sagol = ss.savgol_filter(trade_prices, 199, 20)
-    filter_length = 200
-    moving_avg = np.convolve(trade_prices, np.ones((filter_length)), mode='same')
-    moving_avg /= filter_length
-    # # print(trade_prices)
-    axs[0].plot(a[:100_000])
-    axs[1].plot(moving_avg[:100_000])
+    # # sagol = ss.savgol_filter(trade_prices, 199, 20)
+    # filter_length = 200
+    # moving_avg = np.convolve(trade_prices, np.ones((filter_length)), mode='same')
+    # moving_avg /= filter_length
+    # # # print(trade_prices)
+    # axs[0].plot(a[:100_000])
+    # axs[1].plot(moving_avg[:100_000])
 
-    stream_data_prices = get_stream_data_prices(trade_prices)
-    axs[2].plot(stream_data_prices[:100_000])
-    # plt.plot(a)
-    plt.show()
+    # stream_data_prices = get_stream_data_prices(trade_prices)
+    # axs[2].plot(stream_data_prices[:100_000])
+    # # plt.plot(a)
+    # plt.show()
+    ''''''
     # main()
+    maxmin_ranges = np.linspace(0.0001, 0.05, 20, endpoint=True)
+    max_profit = -math.inf
+    best_filterlength = None
+    best_maxmin_range = None
+
+    ind = 0
+    for filterlength in range(100, 200):
+        for maxmin_range in maxmin_ranges:
+            profit = get_stream_data_prices(trade_prices, filterlength, maxmin_range)
+            if profit > max_profit:
+                max_profit = profit
+                best_filterlength = filterlength
+                best_maxmin_range = maxmin_range
+            print(ind)
+            ind+=1
+
+    print(max_profit)
+    print(best_filterlength)
+    print(best_maxmin_range)
+
 
     # use block below for testing stuff out
     # with concurrent.futures.ProcessPoolExecutor() as executor:
