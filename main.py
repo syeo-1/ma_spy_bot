@@ -10,10 +10,10 @@ import matplotlib.pyplot as plt
 from profile_decorator import profiler
 import math
 
-# test_data = open('GME_quote_data.txt', 'r')
 processed_test_data = [data['data']['p'] for data in processing.jsonify_recorded_data('GME_quote_data.txt')]
-# print(processed_test_data)
 
+def moving_avg_test_params(filter_length, maxmin_range):
+    pass
 
 def test_params(winlength, polyorder, maxmin_range, deque_length):
     trade_data = deque(maxlen=deque_length)
@@ -68,6 +68,7 @@ def find_max_profit_pattern(polyorder):
     # maxmin_range can go from 0.0005 to 0.0100 (20 values), use np linspace
     # deque length can go from 100 to 200
     # only do up to the first 1250 data points
+    # print('awelfoi')
     
     # initialize maxmin_ranges
     maxmin_ranges = np.linspace(0.005, 0.1, 20, endpoint=True)
@@ -78,9 +79,10 @@ def find_max_profit_pattern(polyorder):
     best_maxminrange = None
     best_dequeLength = None
 
-    i = 0
+    # i = 0
+    print(f"running... {polyorder}")
     # for polyorder in range(2, 6):
-    for winlength in range(141, 200, 2):
+    for winlength in range(101, 110, 2):
         for maxmin_range in maxmin_ranges:
             for deque_length in range(200, 201):
                 profit = test_params(winlength, polyorder, maxmin_range, deque_length)
@@ -92,7 +94,7 @@ def find_max_profit_pattern(polyorder):
                     best_dequeLength = deque_length
                 i+=1
                 print(f'index val: {i}')
-            # break
+                # break
         # break
     print("======")
     print(best_winlength)
@@ -105,11 +107,11 @@ def find_max_profit_pattern(polyorder):
 
 
 
-@profiler
+# @profiler
 def run_backtest_bot():
     test_data = open('GME_quote_data.txt', 'r')
     # trade_data = deque(maxlen=1000)
-    trade_data = deque(maxlen=400)
+    trade_data = deque(maxlen=200)
 
     buys = []
     sells = []
@@ -119,7 +121,7 @@ def run_backtest_bot():
     buy = True
     sell = False
 
-    win_length = 199
+    win_length = 155
     poly_order = 5
 
     ind = 0
@@ -129,25 +131,25 @@ def run_backtest_bot():
     sg_values = []
     sg_og = []
 
-    ''' delete block directly below later'''
-    data_p = 0
-    to_plot = []
-    for msg in test_data:
-        data_p += 1
-        if data_p == 1_250:
-            break
-        processed_msg = processing.jsonify_stream_data(msg)
-        trade_data.append(processed_msg['data']['p'])
-        # # once hit maxlen, start attempting trades
-        if len(trade_data) == 400:
-            # winlength = 199
-            # poly_order = 5
-            sg_bids = ss.savgol_filter(trade_data, win_length, 3)
-            to_plot.append(sg_bids[len(sg_bids)-1])
+    # ''' delete block directly below later'''
+    # data_p = 0
+    # to_plot = []
+    # for msg in test_data:
+    #     # data_p += 1
+    #     # if data_p == 1_250:
+    #     #     break
+    #     processed_msg = processing.jsonify_stream_data(msg)
+    #     trade_data.append(processed_msg['data']['p'])
+    #     # # once hit maxlen, start attempting trades
+    #     if len(trade_data) == 400:
+    #         # winlength = 199
+    #         # poly_order = 5
+    #         sg_bids = ss.savgol_filter(trade_data, win_length, 3)
+    #         to_plot.append(sg_bids[len(sg_bids)-1])
 
-    processed_data = processing.jsonify_recorded_data('GME_quote_data.txt')
-    non_processed_prices = [data['data']['p'] for ind, data in enumerate(processed_data) if 400 <= ind < 1_250]
-    savgol_prices = ss.savgol_filter(non_processed_prices, win_length, poly_order)
+    # processed_data = processing.jsonify_recorded_data('GME_quote_data.txt')
+    # non_processed_prices = [data['data']['p'] for ind, data in enumerate(processed_data) if 400 <= ind < 1_250]
+    # savgol_prices = ss.savgol_filter(non_processed_prices, win_length, poly_order)
 
     # fig, axs = plt.subplots(3)
     # # fig.set_figheight(8)
@@ -168,25 +170,25 @@ def run_backtest_bot():
     # plt.show()
      
     # exit(0)
-    return
+    # return
 
     data_point = 0
     for msg in test_data:
-        data_point += 1
-        if data_point == 51_000:
-            break
+        # data_point += 1
+        # if data_point == 51_000:
+        #     break
         processed_msg = processing.jsonify_stream_data(msg)
         trade_data.append(processed_msg['data']['p'])
         # # once hit maxlen, start attempting trades
-        if len(trade_data) == 1000:
-            # sg_bids = ss.savgol_filter(trade_data, win_length, poly_order)
-            # sg_og.append(sg_bids[len(sg_bids)-1])
+        if len(trade_data) == 200:
+            sg_bids = ss.savgol_filter(trade_data, win_length, poly_order)
+            sg_og.append(sg_bids[len(sg_bids)-1])
             sg_bids_deriv1 = ss.savgol_filter(trade_data, win_length, poly_order, deriv=1)
-            # sg_values.append(sg_bids_deriv1[len(sg_bids_deriv1)-1])
+            sg_values.append(sg_bids_deriv1[len(sg_bids_deriv1)-1])
             sg_bids_deriv2 = ss.savgol_filter(trade_data, win_length, poly_order, deriv=2)
 
         #     # check most recently processed elements
-            if -0.009 < sg_bids_deriv1[len(sg_bids_deriv1)-1] < 0.009:
+            if -0.055 < sg_bids_deriv1[len(sg_bids_deriv1)-1] < 0.055:
                 if sg_bids_deriv2[len(sg_bids_deriv2)-1] > 0 and buy:
                     # buy
                     # print(sg_bids_deriv2[199])
@@ -205,17 +207,18 @@ def run_backtest_bot():
                     current_sell_price = processed_msg['data']['p']
                     profit += current_sell_price - current_buy_price
         ind+=1
-        if ind == 100_000:
-            break
+        # if ind == 100_000:
+        #     break
 
     print(profit)
+    # print(buys)
     # print(len(sg_values))
     # get prices
     trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data('GME_quote_data.txt')]
 
     
     # plot everything together
-    fig, axs = plt.subplots(2)
+    fig, axs = plt.subplots(3)
     fig.set_figheight(8)
     fig.set_figwidth(8)
 
@@ -229,7 +232,7 @@ def run_backtest_bot():
     axs[0].scatter(sell_x, sells, c="red", zorder=2)
 
     axs[1].plot(sg_values)
-    # axs[1].plot(sg_og)
+    axs[2].plot(sg_og)
 
 
     plt.show()
@@ -250,26 +253,48 @@ def main():
         print('invalid run_type given. Please give either test or prod')
         exit(1)
 
+def get_stream_data_prices(prices):
+    test_deque = deque(maxlen=200)
+    result = []
+    for price in prices:
+        test_deque.append(price)
+        if len(test_deque) == 200:
+            avg = sum(test_deque)/200
+            result.append(avg)
+    return result
+            
+            
+            
+
+
+
+
+
 if __name__ == '__main__':
-    # fig, axs = plt.subplots(2)
+    fig, axs = plt.subplots(3)
     # fig.set_figheight(8)
     # fig.set_figwidth(8)
-    # a = []
-    # for msg in processing.jsonify_recorded_data('GME_quote_data.txt'):
-    #     a.append(msg['data']['p'])
-    # trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data('GME_quote_data.txt')]
+    a = []
+    for msg in processing.jsonify_recorded_data('GME_quote_data.txt'):
+        a.append(msg['data']['p'])
+    trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data('GME_quote_data.txt')]
     # sagol = ss.savgol_filter(trade_prices, 199, 20)
-    # # # print(trade_prices)
-    # axs[0].plot(a)
-    # axs[1].plot(sagol)
+    filter_length = 200
+    moving_avg = np.convolve(trade_prices, np.ones((filter_length)), mode='same')
+    moving_avg /= filter_length
+    # # print(trade_prices)
+    axs[0].plot(a[:100_000])
+    axs[1].plot(moving_avg[:100_000])
+
+    stream_data_prices = get_stream_data_prices(trade_prices)
+    axs[2].plot(stream_data_prices[:100_000])
     # plt.plot(a)
-    # plt.show()
+    plt.show()
     # main()
 
-
     # use block below for testing stuff out
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        polyorders = [2,3,4,5]
-        results = executor.map(find_max_profit_pattern, polyorders)
+    # with concurrent.futures.ProcessPoolExecutor() as executor:
+    #     polyorders = [2,3,4,5]
+    #     results = executor.map(find_max_profit_pattern, polyorders)
 
     # find_max_profit_pattern()
