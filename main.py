@@ -1,3 +1,4 @@
+import concurrent.futures
 import processing
 import sys
 from collections import deque
@@ -25,7 +26,7 @@ def test_params(winlength, polyorder, maxmin_range, deque_length):
 
     for price in processed_test_data:
         data_point += 1
-        if data_point == 2050:
+        if data_point == 1250:
             break
         trade_data.append(price)
         # # once hit maxlen, start attempting trades
@@ -59,8 +60,8 @@ def test_params(winlength, polyorder, maxmin_range, deque_length):
     return profit
 
 
-
-def find_max_profit_pattern():
+# @profiler
+def find_max_profit_pattern(polyorder):
     # vary between winlength, polyorder, deque_length, and maxmin_range
     # polyorder only really needs to go up to 5
     # winlength can range from 300 to 400
@@ -78,28 +79,27 @@ def find_max_profit_pattern():
     best_dequeLength = None
 
     i = 0
-    for polyorder in range(2, 6):
-        for winlength in range(101, 200, 2):
-            for maxmin_range in maxmin_ranges:
-                for deque_length in range(200, 250):
-                    profit = test_params(winlength, polyorder, maxmin_range, deque_length)
-                    if profit > max_profit:
-                        max_profit = profit
-                        best_polyorder = polyorder
-                        best_winlength = winlength
-                        best_maxminrange = maxmin_range
-                        best_dequeLength = deque_length
-                    i+=1
-                    print(i)
-                break
-            break
-        break
+    # for polyorder in range(2, 6):
+    for winlength in range(141, 200, 2):
+        for maxmin_range in maxmin_ranges:
+            for deque_length in range(200, 201):
+                profit = test_params(winlength, polyorder, maxmin_range, deque_length)
+                if profit > max_profit:
+                    max_profit = profit
+                    best_polyorder = polyorder
+                    best_winlength = winlength
+                    best_maxminrange = maxmin_range
+                    best_dequeLength = deque_length
+                i+=1
+                print(f'index val: {i}')
+            # break
+        # break
     print("======")
     print(best_winlength)
     print(best_polyorder)
     print(best_maxminrange)
     print(best_dequeLength)
-    print(max_profit)
+    print(f'max profit: {max_profit}')
 
 
 
@@ -265,4 +265,11 @@ if __name__ == '__main__':
     # plt.plot(a)
     # plt.show()
     # main()
-    find_max_profit_pattern()
+
+
+    # use block below for testing stuff out
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        polyorders = [2,3,4,5]
+        results = executor.map(find_max_profit_pattern, polyorders)
+
+    # find_max_profit_pattern()
