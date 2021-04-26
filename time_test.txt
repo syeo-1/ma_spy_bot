@@ -1,0 +1,293 @@
+249.52000000000052
+170
+0.0059696969696969695
+214.92999999999995
+175
+0.0052171717171717175
+148.52999999999955
+222
+0.001003030303030303
+257.89999999999884
+241
+0.010033333333333332
+         2742 function calls (2703 primitive calls) in 2465.719 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000 2465.719 2465.719 main.py:325(multiprocess_testing)
+       10 2465.661  246.566 2465.661  246.566 {method 'acquire' of '_thread.lock' objects}
+        1    0.000    0.000 2465.661 2465.661 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/_base.py:610(__exit__)
+        1    0.001    0.001 2465.661 2465.661 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:648(shutdown)
+        2    0.000    0.000 2465.660 1232.830 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:1000(join)
+        2    0.000    0.000 2465.660 1232.830 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:1038(_wait_for_tstate_lock)
+     10/3    0.000    0.000    0.038    0.013 <frozen importlib._bootstrap>:978(_find_and_load)
+     10/3    0.000    0.000    0.038    0.013 <frozen importlib._bootstrap>:948(_find_and_load_unlocked)
+      9/3    0.000    0.000    0.037    0.012 <frozen importlib._bootstrap>:663(_load_unlocked)
+      7/3    0.000    0.000    0.037    0.012 <frozen importlib._bootstrap_external>:722(exec_module)
+        1    0.000    0.000    0.036    0.036 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/__init__.py:39(__getattr__)
+     12/3    0.000    0.000    0.035    0.012 <frozen importlib._bootstrap>:211(_call_with_frames_removed)
+      7/3    0.000    0.000    0.035    0.012 {built-in method builtins.exec}
+        1    0.000    0.000    0.035    0.035 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:44(<module>)
+        1    0.000    0.000    0.031    0.031 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:10(<module>)
+    37/35    0.000    0.000    0.029    0.001 <frozen importlib._bootstrap>:1009(_handle_fromlist)
+        1    0.000    0.000    0.029    0.029 {built-in method builtins.__import__}
+       35    0.028    0.001    0.029    0.001 {built-in method builtins.__build_class__}
+        1    0.000    0.000    0.028    0.028 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:10(<module>)
+        1    0.000    0.000    0.019    0.019 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:619(map)
+        1    0.000    0.000    0.019    0.019 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/_base.py:550(map)
+        1    0.000    0.000    0.019    0.019 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/_base.py:575(<listcomp>)
+        4    0.000    0.000    0.019    0.005 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:596(submit)
+        4    0.000    0.000    0.018    0.005 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:558(_start_queue_management_thread)
+        1    0.001    0.001    0.014    0.014 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:585(_adjust_process_count)
+        4    0.000    0.000    0.013    0.003 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/process.py:101(start)
+        4    0.000    0.000    0.012    0.003 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/context.py:274(_Popen)
+        4    0.000    0.000    0.011    0.003 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/popen_fork.py:16(__init__)
+        4    0.001    0.000    0.011    0.003 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/popen_fork.py:67(_launch)
+        4    0.009    0.002    0.009    0.002 {built-in method posix.fork}
+        7    0.000    0.000    0.004    0.001 <frozen importlib._bootstrap_external>:793(get_code)
+        1    0.000    0.000    0.003    0.003 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:829(start)
+        1    0.000    0.000    0.003    0.003 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:490(__init__)
+        1    0.000    0.000    0.002    0.002 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:156(__init__)
+        1    0.000    0.000    0.002    0.002 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:36(__init__)
+        4    0.000    0.000    0.002    0.001 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/context.py:64(Lock)
+        7    0.001    0.000    0.002    0.000 <frozen importlib._bootstrap_external>:914(get_data)
+        9    0.000    0.000    0.002    0.000 <frozen importlib._bootstrap>:576(module_from_spec)
+       10    0.000    0.000    0.002    0.000 <frozen importlib._bootstrap>:882(_find_spec)
+       10    0.000    0.000    0.002    0.000 <frozen importlib._bootstrap_external>:1272(find_spec)
+       10    0.000    0.000    0.002    0.000 <frozen importlib._bootstrap_external>:1240(_get_spec)
+        1    0.000    0.000    0.002    0.002 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:534(wait)
+        1    0.000    0.000    0.002    0.002 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:264(wait)
+       18    0.000    0.000    0.002    0.000 <frozen importlib._bootstrap_external>:1356(find_spec)
+        7    0.002    0.000    0.002    0.000 {method 'read' of '_io.FileIO' objects}
+        2    0.000    0.000    0.002    0.001 <frozen importlib._bootstrap_external>:1040(create_module)
+        2    0.002    0.001    0.002    0.001 {built-in method _imp.create_dynamic}
+        1    0.001    0.001    0.001    0.001 {built-in method _thread.start_new_thread}
+        7    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:523(_compile_bytecode)
+        7    0.001    0.000    0.001    0.000 {built-in method marshal.loads}
+        5    0.000    0.000    0.001    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:51(__init__)
+        1    0.000    0.000    0.001    0.001 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:1(<module>)
+        4    0.000    0.000    0.001    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:162(__init__)
+       34    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:74(_path_stat)
+       34    0.001    0.000    0.001    0.000 {built-in method posix.stat}
+        5    0.000    0.000    0.001    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:115(_make_name)
+       19    0.000    0.000    0.001    0.000 {built-in method builtins.next}
+        5    0.000    0.000    0.001    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/tempfile.py:153(__next__)
+        4    0.000    0.000    0.001    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/process.py:72(__init__)
+        4    0.001    0.000    0.001    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:151(__init__)
+        5    0.000    0.000    0.001    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/tempfile.py:142(rng)
+        9    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:93(_path_isfile)
+        1    0.000    0.000    0.001    0.001 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:758(__init__)
+        9    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:84(_path_is_mode_type)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:398(_flush_std_streams)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:504(_init_module_attrs)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:88(wakeup)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/tempfile.py:156(<listcomp>)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:181(send_bytes)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/random.py:88(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/random.py:97(seed)
+        1    0.000    0.000    0.000    0.000 {function Random.seed at 0x1154efae8}
+       40    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/random.py:256(choice)
+       89    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:56(_path_join)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:11(<module>)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/process.py:53(_cleanup)
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:147(__enter__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/context.py:109(SimpleQueue)
+        7    0.000    0.000    0.000    0.000 {built-in method posix.pipe}
+       40    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/random.py:224(_randbelow)
+       14    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:271(cache_from_source)
+        9    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:216(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:330(__init__)
+       87    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+       16    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:403(cached)
+      112    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:390(_send_bytes)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:369(_get_cached)
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/popen_fork.py:25(poll)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:10(<module>)
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:157(_get_module_lock)
+       89    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:58(<listcomp>)
+        7    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:951(path_stats)
+       32    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:416(parent)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:499(__init__)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1351(_get_spec)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/_base.py:312(__init__)
+        8    0.000    0.000    0.000    0.000 {method 'flush' of '_io.TextIOWrapper' objects}
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:170(__call__)
+       12    0.000    0.000    0.000    0.000 {built-in method posix.close}
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/weakref.py:356(remove)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:121(put)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/_weakrefset.py:81(add)
+        3    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:506(Pipe)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/context.py:84(BoundedSemaphore)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:365(_send)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:318(__exit__)
+        7    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:438(_classify_pyc)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:574(spec_from_file_location)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:141(join_thread)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:145(__init__)
+        5    0.000    0.000    0.000    0.000 {built-in method posix.write}
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:151(__exit__)
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:136(register_after_fork)
+      102    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:222(_verbose_message)
+       59    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:187(_finalize_join)
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/_weakrefset.py:38(_remove)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/process.py:225(ident)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:173(_get_chunks)
+       93    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/weakref.py:109(remove)
+        3    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:1206(current_thread)
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:103(release)
+        6    0.000    0.000    0.000    0.000 {built-in method posix.waitpid}
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:75(RLock)
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:78(acquire)
+        4    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:58(__init__)
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/weakref.py:165(__setitem__)
+       21    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:51(_r_long)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/popen_fork.py:1(<module>)
+        2    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:968(_stop)
+      192    0.000    0.000    0.000    0.000 {method 'rstrip' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:67(_after_fork)
+       25    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+       14    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:62(_path_split)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:335(notify)
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:176(cb)
+        8    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/process.py:85(<genexpr>)
+        5    0.000    0.000    0.000    0.000 {built-in method _struct.pack}
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:81(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:84(close)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:1096(daemon)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:33(__init__)
+        7    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:471(_validate_timestamp_pyc)
+        9    0.000    0.000    0.000    0.000 {built-in method builtins.any}
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:1112(daemon)
+       31    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:859(__exit__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/context.py:59(Pipe)
+        8    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/process.py:90(_check_closed)
+       80    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+       22    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1203(_path_importer_cache)
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:130(__del__)
+       31    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:855(__enter__)
+       21    0.000    0.000    0.000    0.000 {built-in method from_bytes}
+       23    0.000    0.000    0.000    0.000 {built-in method posix.getpid}
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:792(find_spec)
+       67    0.000    0.000    0.000    0.000 {method 'getrandbits' of '_random.Random' objects}
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:369(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/weakref.py:406(__setitem__)
+       51    0.000    0.000    0.000    0.000 {built-in method _imp.acquire_lock}
+        7    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:401(_check_name_wrapper)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:360(_close)
+        7    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:35(_new_module)
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:719(find_spec)
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/weakref.py:334(__new__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/weakref.py:102(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:249(_release_save)
+       11    0.000    0.000    0.000    0.000 {method 'endswith' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 {built-in method posix.sysconf}
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:446(_check_system_limits)
+       42    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+       18    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:36(_relax_case)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1048(exec_module)
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:117(__init__)
+       51    0.000    0.000    0.000    0.000 {built-in method _imp.release_lock}
+        6    0.000    0.000    0.000    0.000 {built-in method _weakref._remove_dead_weakref}
+       36    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:321(<genexpr>)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:255(_is_owned)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:212(_put)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:134(_check_closed)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:114(_ConnectionBase)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:240(__enter__)
+        6    0.000    0.000    0.000    0.000 {built-in method builtins.setattr}
+       23    0.000    0.000    0.000    0.000 {built-in method posix.fspath}
+       10    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:143(__init__)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:307(__init__)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:311(__enter__)
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/weakref.py:339(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:361(Barrier)
+        3    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:173(close)
+       24    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        7    0.000    0.000    0.000    0.000 {built-in method _imp._fix_co_filename}
+        5    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
+        7    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:884(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/weakref.py:354(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:34(Queue)
+        4    0.000    0.000    0.000    0.000 {built-in method _imp.is_builtin}
+       10    0.000    0.000    0.000    0.000 {built-in method _imp.is_frozen}
+       23    0.000    0.000    0.000    0.000 {built-in method _thread.get_ident}
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:243(__exit__)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:134(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:489(ProcessPoolExecutor)
+       40    0.000    0.000    0.000    0.000 {method 'bit_length' of 'int' objects}
+        9    0.000    0.000    0.000    0.000 {method 'add' of 'set' objects}
+        2    0.000    0.000    0.000    0.000 {method 'format' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method posix.cpu_count}
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:47(SemLock)
+        6    0.000    0.000    0.000    0.000 {method 'discard' of 'set' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x10dda9f70}
+        5    0.000    0.000    0.000    0.000 {method '__enter__' of '_thread.lock' objects}
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:424(has_location)
+        7    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:909(get_filename)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:91(_make_methods)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:27(Queue)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:348(Connection)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/process.py:36(current_process)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/popen_fork.py:13(Popen)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:422(Listener)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:44(sub_debug)
+        2    0.000    0.000    0.000    0.000 {method 'setter' of 'property' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:873(_find_spec_legacy)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/weakref.py:288(update)
+        6    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/context.py:186(get_context)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/context.py:196(get_start_method)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/context.py:232(get_context)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:131(close)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:211(Condition)
+        5    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:142(_check_writable)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:147(Finalize)
+        6    0.000    0.000    0.000    0.000 {built-in method builtins.id}
+        2    0.000    0.000    0.000    0.000 {built-in method _imp.exec_dynamic}
+        2    0.000    0.000    0.000    0.000 {built-in method atexit.register}
+        5    0.000    0.000    0.000    0.000 {method '__exit__' of '_thread.lock' objects}
+        7    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:719(create_module)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1029(__init__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:252(_acquire_restore)
+        4    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py:507(is_set)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/reduction.py:43(register)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:286(JoinableQueue)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/queues.py:328(SimpleQueue)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:322(Event)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:80(_ThreadWakeup)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:114(_RemoteTraceback)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:140(_ResultItem)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:154(_SafeQueue)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:205(_init)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:220(PriorityQueue)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:239(LifoQueue)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:255(_PySimpleQueue)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:569(SocketListener)
+        9    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:48(debug)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:333(ForkAwareThreadLock)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/_base.py:607(__enter__)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/six.py:184(find_module)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:124(Semaphore)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:143(BoundedSemaphore)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:160(Lock)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/synchronize.py:185(RLock)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:120(_ExceptionWithTraceback)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:133(_WorkItem)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:482(BrokenProcessPool)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queue.py:22(Full)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:754(ConnectionWrapper)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py:776(XmlListener)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/util.py:350(ForkAwareLocal)
+        3    0.000    0.000    0.000    0.000 {method 'release' of '_thread.lock' objects}
+        2    0.000    0.000    0.000    0.000 {method 'locked' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/_base.py:579(result_iterator)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:146(_CallItem)
+        1    0.000    0.000    0.000    0.000 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/concurrent/futures/process.py:470(_chain_from_iterable_of_lists)
+
+
+

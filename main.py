@@ -296,10 +296,43 @@ def get_stream_data_prices(prices, filterlength, maxmin_range):
     # return result
             
             
+trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data('GME_quote_data.txt')]
             
+def moving_avg_testing(filterlengths):
+    # start_filter_length = 100
+    maxmin_ranges = np.linspace(0.0001, 0.015, 100, endpoint=True)
+    max_profit = -math.inf
+    best_filterlength = None
+    best_maxmin_range = None
 
+    # return
 
+    # ind = 0
+    for filterlength in range(filterlengths[0], filterlengths[1]):
+        for maxmin_range in maxmin_ranges:
+            profit = get_stream_data_prices(trade_prices, filterlength, maxmin_range)
+            if profit > max_profit:
+                max_profit = profit
+                best_filterlength = filterlength
+                best_maxmin_range = maxmin_range
+            # print(ind)
+            # ind+=1
 
+    print(max_profit)
+    print(best_filterlength)
+    print(best_maxmin_range)
+
+@profiler
+def multiprocess_testing():
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        # polyorders = [1,2,3,4]
+        filterlengths = [
+            [150, 175],
+            [175, 200],
+            [200, 225],
+            [225, 250]
+        ]
+        results = executor.map(moving_avg_testing, filterlengths)
 
 
 if __name__ == '__main__':
@@ -310,7 +343,6 @@ if __name__ == '__main__':
     # a = []
     # for msg in processing.jsonify_recorded_data('GME_quote_data.txt'):
     #     a.append(msg['data']['p'])
-    trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data('GME_quote_data.txt')]
     # # sagol = ss.savgol_filter(trade_prices, 199, 20)
     # filter_length = 200
     # moving_avg = np.convolve(trade_prices, np.ones((filter_length)), mode='same')
@@ -325,30 +357,8 @@ if __name__ == '__main__':
     # plt.show()
     ''''''
     # main()
-    maxmin_ranges = np.linspace(0.0001, 0.05, 20, endpoint=True)
-    max_profit = -math.inf
-    best_filterlength = None
-    best_maxmin_range = None
-
-    ind = 0
-    for filterlength in range(100, 200):
-        for maxmin_range in maxmin_ranges:
-            profit = get_stream_data_prices(trade_prices, filterlength, maxmin_range)
-            if profit > max_profit:
-                max_profit = profit
-                best_filterlength = filterlength
-                best_maxmin_range = maxmin_range
-            print(ind)
-            ind+=1
-
-    print(max_profit)
-    print(best_filterlength)
-    print(best_maxmin_range)
-
+    multiprocess_testing()
 
     # use block below for testing stuff out
-    # with concurrent.futures.ProcessPoolExecutor() as executor:
-    #     polyorders = [2,3,4,5]
-    #     results = executor.map(find_max_profit_pattern, polyorders)
 
     # find_max_profit_pattern()
