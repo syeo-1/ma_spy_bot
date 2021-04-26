@@ -340,9 +340,9 @@ def plot_profits_vs_params(data):
     filterlengths = [data['filterlength'] for data in sorted_by_profits_data]
     maxmin_ranges = [data['maxmin_range'] for data in sorted_by_profits_data]
     
-    plt.plot(profits)
-    plt.plot(filterlengths)
-    plt.plot(maxmin_ranges)
+    plt.plot(profits, color='green')
+    plt.plot(filterlengths, color='blue')
+    plt.plot(maxmin_ranges, color='orange')
 
     plt.show()
 
