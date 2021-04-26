@@ -9,8 +9,13 @@ import actions
 import matplotlib.pyplot as plt
 from profile_decorator import profiler
 import math
+import multiprocessing
 
 processed_test_data = [data['data']['p'] for data in processing.jsonify_recorded_data('GME_quote_data.txt')]
+
+manager = multiprocessing.Manager()
+
+shared_data = manager.list()
 
 def moving_avg_test_params(filter_length, maxmin_range):
     pass
@@ -297,10 +302,11 @@ def get_stream_data_prices(prices, filterlength, maxmin_range):
             
             
 trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data('GME_quote_data.txt')]
-            
+
+
 def moving_avg_testing(filterlengths):
     # start_filter_length = 100
-    maxmin_ranges = np.linspace(0.0001, 0.015, 100, endpoint=True)
+    maxmin_ranges = np.linspace(0.0001, 0.015, 1, endpoint=True)
     max_profit = -math.inf
     best_filterlength = None
     best_maxmin_range = None
@@ -311,6 +317,11 @@ def moving_avg_testing(filterlengths):
     for filterlength in range(filterlengths[0], filterlengths[1]):
         for maxmin_range in maxmin_ranges:
             profit = get_stream_data_prices(trade_prices, filterlength, maxmin_range)
+            shared_data.append({
+                'profit': profit,
+                'filterlength': filterlength,
+                'maxmin_range': maxmin_range
+            })
             if profit > max_profit:
                 max_profit = profit
                 best_filterlength = filterlength
@@ -322,10 +333,24 @@ def moving_avg_testing(filterlengths):
     print(best_filterlength)
     print(best_maxmin_range)
 
-@profiler
+
+def plot_profits_vs_params(data):
+    sorted_by_profits_data = sorted(data, key=lambda k: k['profit'])
+    profits = [data['profit'] for data in sorted_by_profits_data]
+    filterlengths = [data['filterlength'] for data in sorted_by_profits_data]
+    maxmin_ranges = [data['maxmin_range'] for data in sorted_by_profits_data]
+    
+    plt.plot(profits)
+    plt.plot(filterlengths)
+    plt.plot(maxmin_ranges)
+
+    plt.show()
+
+
+# @profiler
 def multiprocess_testing():
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        # polyorders = [1,2,3,4]
+        polyorders = [1,2,3,4]
         filterlengths = [
             [150, 175],
             [175, 200],
@@ -333,10 +358,16 @@ def multiprocess_testing():
             [225, 250]
         ]
         results = executor.map(moving_avg_testing, filterlengths)
+    #     results = executor.map(basic_test, [1,2,3,4])
+    # print(shared_data)
+    plot_profits_vs_params(shared_data)
+    # print(shared_profits)
+    # print(shared_filterlengths)
+    # print(shared_maxmin_ranges)
 
 
 if __name__ == '__main__':
-    fig, axs = plt.subplots(3)
+    # fig, axs = plt.subplots(3)
     # fig.set_figheight(8)
     # fig.set_figwidth(8)
     ''''''
