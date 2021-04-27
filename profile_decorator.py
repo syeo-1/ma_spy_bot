@@ -13,7 +13,7 @@ def profiler(func):
         ps = pstats.Stats(profile, stream=s).sort_stats(sortby)
         ps.print_stats()
         # print(s.getvalue())
-        with open('time_test.txt' 'w+') as output:
+        with open('time_test.txt', 'w+') as output:
             output.write(s.getvalue())
         return info
     
