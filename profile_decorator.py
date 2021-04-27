@@ -12,7 +12,9 @@ def profiler(func):
         sortby = 'cumulative'
         ps = pstats.Stats(profile, stream=s).sort_stats(sortby)
         ps.print_stats()
-        print(s.getvalue())
+        # print(s.getvalue())
+        with open('time_test.txt' 'w+') as output:
+            output.write(s.getvalue())
         return info
     
     return info_retriever
