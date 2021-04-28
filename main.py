@@ -13,13 +13,12 @@ import multiprocessing
 from sklearn import preprocessing
 import plotter
 
-processed_test_data = [data['data']['p'] for data in processing.jsonify_recorded_data('GME_quote_data.txt')]
+trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data('GME_quote_data.txt')]
 
 manager = multiprocessing.Manager()
 
 shared_data = manager.list()
 
-# best_params = manager.dict()
 overall_best_filterlength = manager.Value('i', -1)
 overall_best_maxmin_range = manager.Value('d', -1.0)
 overall_max_profit = manager.Value('d', -1.0)
@@ -43,12 +42,10 @@ def get_stream_data_prices(prices, filterlength, maxmin_range):
     profit = 0
 
     currentBuy = None
-    # result = []
     for price in prices:
         test_deque.append(price)
         if len(test_deque) == filterlength:
             avg = sum(test_deque)/filterlength
-            # result.append(avg)
             d_calculations.append(avg)
             if len(d_calculations) == 3:
                 for i in range(2):
@@ -66,23 +63,15 @@ def get_stream_data_prices(prices, filterlength, maxmin_range):
                     buy = True
                     sell = False
                 
-    # print(profit)
     return profit
 
-    # return result
-            
-            
-trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data('GME_quote_data.txt')]
 
 
 def moving_avg_testing(filterlengths):
-    # start_filter_length = 100
     maxmin_ranges = np.linspace(0.0001, 0.015, 1, endpoint=True)
     max_profit = -math.inf
     best_filterlength = None
     best_maxmin_range = None
-
-    # return
 
     ind = 0
     for filterlength in range(filterlengths[0], filterlengths[1]):
@@ -94,40 +83,30 @@ def moving_avg_testing(filterlengths):
                 'maxmin_range': maxmin_range
             })
             if profit > max_profit:
-                # print('awieugaiwgaowiegoaweo')
                 max_profit = profit
                 best_filterlength = filterlength
                 best_maxmin_range = maxmin_range
             print(ind)
             ind+=1
 
-    # print(overall_max_profit)
-    if max_profit > overall_max_profit.value: # pylint: disable=E0601
+    if max_profit > overall_max_profit.value: 
         overall_max_profit.value = max_profit
         overall_best_filterlength.value = best_filterlength
         overall_best_maxmin_range.value = best_maxmin_range
     
+    # write best params to file
     trading_param_file = open('param_file.txt', 'w+')
     trading_param_file.write(f'''max_profit: {overall_max_profit},\n
         best_filterlength: {overall_best_filterlength},\n
         best_maxmin_range: {overall_best_maxmin_range}'''
     )
-    # print('test')
     trading_param_file.close()
-
-    # print(max_profit)
-    # print(best_filterlength)
-    # print(best_maxmin_range)
-
-
-
 
 
 @profiler
 def run_backtest_bot():
     '''backtest strategy using recorded data'''
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        # polyorders = [1,2,3,4]
         filterlengths = [
             [150, 175],
             [175, 200],
