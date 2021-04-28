@@ -96,10 +96,7 @@ def moving_avg_testing(filterlengths):
     
     # write best params to file
     trading_param_file = open('param_file.txt', 'w+')
-    trading_param_file.write(f'''max_profit: {overall_max_profit},\n
-        best_filterlength: {overall_best_filterlength},\n
-        best_maxmin_range: {overall_best_maxmin_range}'''
-    )
+    trading_param_file.write(f'''max_profit,{overall_max_profit.value}\nbest_filterlength,{overall_best_filterlength.value}\nbest_maxmin_range,{overall_best_maxmin_range.value}''')
     trading_param_file.close()
 
 
