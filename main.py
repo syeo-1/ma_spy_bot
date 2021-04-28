@@ -19,6 +19,11 @@ manager = multiprocessing.Manager()
 
 shared_data = manager.list()
 
+# best_params = manager.dict()
+overall_best_filterlength = manager.Value('i', -1)
+overall_best_maxmin_range = manager.Value('d', -1.0)
+overall_max_profit = manager.Value('d', -1.0)
+
 
 def run_prod_bot():
     pass
@@ -96,10 +101,23 @@ def moving_avg_testing(filterlengths):
             print(ind)
             ind+=1
 
+    # print(overall_max_profit)
+    if max_profit > overall_max_profit.value: # pylint: disable=E0601
+        overall_max_profit.value = max_profit
+        overall_best_filterlength.value = best_filterlength
+        overall_best_maxmin_range.value = best_maxmin_range
+    
+    trading_param_file = open('param_file.txt', 'w+')
+    trading_param_file.write(f'''max_profit: {overall_max_profit},\n
+        best_filterlength: {overall_best_filterlength},\n
+        best_maxmin_range: {overall_best_maxmin_range}'''
+    )
+    # print('test')
+    trading_param_file.close()
 
-    print(max_profit)
-    print(best_filterlength)
-    print(best_maxmin_range)
+    # print(max_profit)
+    # print(best_filterlength)
+    # print(best_maxmin_range)
 
 
 
@@ -117,12 +135,9 @@ def run_backtest_bot():
             [225, 250]
         ]
         results = executor.map(moving_avg_testing, filterlengths)
-    #     results = executor.map(basic_test, [1,2,3,4])
-    # print(shared_data)
-    plotter.plot_dict_list(shared_data,'profit')
-    # print(shared_profits)
-    # print(shared_filterlengths)
-    # print(shared_maxmin_ranges)
+
+    # plotter.plot_dict_list(shared_data,'profit')
+
 
 def main():
     run_type = sys.argv[1]
