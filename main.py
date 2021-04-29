@@ -23,6 +23,8 @@ overall_best_filterlength = manager.Value('i', -1)
 overall_best_maxmin_range = manager.Value('d', -1.0)
 overall_max_profit = manager.Value('d', -1.0)
 
+best_param_file = 'param_file.txt'
+
 
 def run_prod_bot():
     pass
@@ -94,10 +96,7 @@ def moving_avg_testing(filterlengths):
         overall_best_filterlength.value = best_filterlength
         overall_best_maxmin_range.value = best_maxmin_range
     
-    # write best params to file
-    trading_param_file = open('param_file.txt', 'w+')
-    trading_param_file.write(f'''max_profit,{overall_max_profit.value}\nbest_filterlength,{overall_best_filterlength.value}\nbest_maxmin_range,{overall_best_maxmin_range.value}''')
-    trading_param_file.close()
+
 
 
 @profiler
@@ -111,6 +110,47 @@ def run_backtest_bot():
             [225, 250]
         ]
         results = executor.map(moving_avg_testing, filterlengths)
+    
+    # print(results)
+    for result in results:
+        print(result)
+
+    # get rid of oldest data in file if more than 1 weeks worth of param data
+    trading_param_file = open(best_param_file, 'r')
+    new_file_contents = []
+    if len(trading_param_file.readlines()) == 8:
+
+        # reset file pointer position after confirming 8 lines
+        trading_param_file.seek(0, 0)
+
+        # skip reading the oldest param data
+        line_count = 1
+        for line in trading_param_file:
+            if line_count == 2:
+                line_count += 1
+                continue
+            new_file_contents.append(line)
+            line_count += 1
+            # print(line)
+        print(new_file_contents)
+        
+        
+        # overwrite the file without the oldest date's best params
+        trading_param_file = open(best_param_file, 'w')
+        for line in new_file_contents:
+            trading_param_file.write(line)
+        print(new_file_contents)
+        
+        # close the file
+        trading_param_file.close()
+    
+    # print(len(trading_param_file.readlines()))
+
+
+    # append most recent day's best params to the file
+    trading_param_file = open(best_param_file, 'a')
+    trading_param_file.write(f'''\n{overall_max_profit.value},{overall_best_filterlength.value},{overall_best_maxmin_range.value}''')
+    trading_param_file.close()
 
     # plotter.plot_dict_list(shared_data,'profit')
 
