@@ -23,6 +23,40 @@ def get_recorded_data(data, key):
     '''return list of specified quote data given a key'''
     return [quote['data'][key] for quote in data]
     
+def record_best_param_data(data, filename):
+    ''' append current best parameter data to specified file '''
+
+    # get rid of oldest data in file if more than 1 weeks worth of param data
+    trading_param_file = open(filename, 'r')
+    new_file_contents = []
+    if len(trading_param_file.readlines()) == 8:
+
+        # reset file pointer position after confirming 8 lines
+        trading_param_file.seek(0, 0)
+
+        # skip reading the oldest param data
+        line_count = 1
+        for line in trading_param_file:
+            if line_count == 2:
+                line_count += 1
+                continue
+            new_file_contents.append(line)
+            line_count += 1
+        
+        # overwrite the file without the oldest date's best params
+        trading_param_file = open(filename, 'w')
+        for line in new_file_contents:
+            trading_param_file.write(line)
+        
+        # close the file
+        trading_param_file.close()
+    
+    # append most recent day's best params to the file
+    trading_param_file = open(filename, 'a')
+    trading_param_file.write(f'''\n{data["best_profit"]},{data["best_filterlength"]},{data["best_maxmin_range"]}''')
+    trading_param_file.close()
+    
+
 
 # demo/test below
 # the below will only run if the file is being called directly!
