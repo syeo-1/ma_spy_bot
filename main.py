@@ -100,7 +100,7 @@ def moving_avg_testing(filterlengths):
 
 
 
-@profiler
+@profiler(run_profiler=True, output_file=config.BACKTEST_PROFILE)
 def run_backtest_bot():
     '''backtest strategy using recorded data'''
     with concurrent.futures.ProcessPoolExecutor() as executor:
