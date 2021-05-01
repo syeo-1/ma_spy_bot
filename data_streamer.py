@@ -24,25 +24,32 @@ def authenticate_connection(ws):
     channel_data = {
         "action": "listen",
         "data": { 
-            "streams": [f"T.{config.STOCK_NAME}"]
+            "streams": [f"T.{config.STOCK_NAME}", f"Q.{config.STOCK_NAME}"]
         }
     }
     return_value2 = ws.send(json.dumps(channel_data))
     print(return_value2)
 
+trade_file = open("/Users/seanyeo/Desktop/studying resources/self-learning/alpaca_trading/ma_spy_bot/SPY_trade_data.txt", "a")
+quote_file = open("/Users/seanyeo/Desktop/studying resources/self-learning/alpaca_trading/ma_spy_bot/SPY_quote_data.txt", "a")
+
 def stream_data(ws, msg):
     # convert message from string to dictionary
     dict_msg = ast.literal_eval(msg)
     global fresh_minute
-    print(dict_msg)
+    # print(dict_msg)
     # only process stock ticker data
     if dict_msg["stream"] == f"T.{config.STOCK_NAME}":
         # print(dict_msg)
-        creator.process(msg)
+        trade_file.write(msg+'\n')
         # process(dict_msg)
+    elif dict_msg["stream"] == f"Q.{config.STOCK_NAME}":
+        quote_file.write(msg+'\n')
 
 def on_close(ws):
     print("===connection closed===")
+    trade_file.close()
+    quote_file.close()
 
 def initiliaze_stream():
     # make sure to build candlesticks only if the minute is new
@@ -57,4 +64,6 @@ def initiliaze_stream():
 
 if __name__ == "__main__":
     # creator = Candlestick_creator()
+    # trade_file.write('testing123')
+    # quote_file.write('testing123')
     initiliaze_stream()
