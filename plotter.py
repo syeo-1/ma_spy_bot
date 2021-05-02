@@ -46,14 +46,6 @@ def plot_recorded_shared_data():
     
     plt.show()
 
-
-
-
-
-
-
-
-
 def is_int(str_num):
     try:
         int_num = int(str_num)
@@ -62,11 +54,6 @@ def is_int(str_num):
         return False
     else:
         return int_num == float_num
-
-def get_optimal_param_data(params):
-    pass
-
-
 
 def plot_optimal_params():
     # get the optimal params stored in param_file.txt
