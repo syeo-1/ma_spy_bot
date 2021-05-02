@@ -100,7 +100,7 @@ def moving_avg_testing(filterlengths):
 
 
 
-@profiler(run_profiler=True, output_file=config.BACKTEST_PROFILE)
+@profiler(run_profiler=False, output_file=config.BACKTEST_PROFILE)
 def run_backtest_bot():
     '''backtest strategy using recorded data'''
     with concurrent.futures.ProcessPoolExecutor() as executor:
@@ -118,7 +118,11 @@ def run_backtest_bot():
         "best_maxmin_range": overall_best_maxmin_range.value
     }
 
+    # record the single best param group
     processing.record_best_param_data(best_param_data, best_param_file)
+
+    # record the shared data (all params and profits)
+    processing.record_shared_data(shared_data, config.SHARED_DATA_FILE)
 
     # plotter.plot_dict_list(shared_data,'profit')
 

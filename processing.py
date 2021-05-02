@@ -56,6 +56,15 @@ def record_best_param_data(data, filename):
     trading_param_file.write(f'''\n{data["best_profit"]},{data["best_filterlength"]},{data["best_maxmin_range"]}''')
     trading_param_file.close()
     
+def record_shared_data(shared_data, shared_data_file):
+    ''' records the used params vs profits data to a text file '''
+
+    # sort the shared data
+    sorted_shared_data = sorted(shared_data, key=lambda k: k['profit'], reverse=True)
+
+    with open(shared_data_file, 'w+') as output:
+        for dic in sorted_shared_data:
+            output.write(json.dumps(dic)+'\n')
 
 
 # demo/test below
