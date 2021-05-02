@@ -57,19 +57,36 @@ def is_int(str_num):
 
 def plot_optimal_params():
     # get the optimal params stored in param_file.txt
-    param_file = open('param_file.txt', 'r')
+    param_file = open(config.BEST_PARAM_FILE, 'r')
     
-    best_params = {}
+    is_header = True
+    filterlengths  = []
+    profits = []
+    maxmin_ranges = []
     for line in param_file:
+        if is_header:
+            is_header = False
+            continue
         data = line.strip().split(',')
-        if is_int(data[1]):
-            best_params[data[0]] = int(data[1])
-        else:
-            best_params[data[0]] = float(data[1])
+        for i in range(len(data)):
+            if is_int(data[i]):
+                filterlengths.append(int(data[i]))
+            else:
+                if i == 0:
+                    profits.append(float(data[i]))
+                elif i == 2:
+                    maxmin_ranges.append(float(data[i]))
     
-    # print(best_params)
+    plot_data = [profits, filterlengths, maxmin_ranges]
+
+    # plot out the data
+    for data in plot_data:
+        plt.plot(data)
+    
+    plt.show()
 
     # create a plot using the best parameters
 
 if __name__ == '__main__':
-    plot_recorded_shared_data()
+    # plot_recorded_shared_data()
+    plot_optimal_params()
