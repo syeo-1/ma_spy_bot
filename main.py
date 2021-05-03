@@ -71,7 +71,7 @@ def get_stream_data_prices(prices, filterlength, maxmin_range):
 
 
 def moving_avg_testing(filterlengths):
-    maxmin_ranges = np.linspace(0.0001, 0.015, 1, endpoint=True)
+    maxmin_ranges = np.linspace(0.002, 0.002, 1, endpoint=True)
     max_profit = -math.inf
     best_filterlength = None
     best_maxmin_range = None
@@ -104,12 +104,15 @@ def moving_avg_testing(filterlengths):
 def run_backtest_bot():
     '''backtest strategy using recorded data'''
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        filterlengths = [
-            [150, 175],
-            [175, 200],
-            [200, 225],
-            [225, 250]
-        ]
+        filterlengths = []
+        upper_range = 1_000
+        num_processors = multiprocessing.cpu_count()
+        division_size = upper_range // num_processors
+
+        current_lower = 0
+        for i in range(1, num_processors+1):
+            filterlengths.append([current_lower, i*division_size])
+            current_lower = i*division_size
         results = executor.map(moving_avg_testing, filterlengths)
     
     best_param_data = {
@@ -124,7 +127,7 @@ def run_backtest_bot():
     # record the shared data (all params and profits)
     processing.record_shared_data(shared_data, config.SHARED_DATA_FILE)
 
-    # plotter.plot_dict_list(shared_data,'profit')
+    plotter.plot_dict_list(shared_data,'profit')
 
 
 def main():
