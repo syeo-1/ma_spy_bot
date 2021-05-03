@@ -113,7 +113,7 @@ def run_backtest_bot():
         for i in range(1, num_processors+1):
             filterlengths.append([current_lower, i*division_size])
             current_lower = i*division_size
-        results = executor.map(moving_avg_testing, filterlengths)
+        executor.map(moving_avg_testing, filterlengths)
     
     best_param_data = {
         "best_profit": overall_max_profit.value,
