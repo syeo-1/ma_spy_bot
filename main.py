@@ -73,6 +73,10 @@ def get_stream_data_prices(prices, filterlength, maxmin_range):
 
 def moving_avg_testing(filterlengths=None, maxmin=None, linspace_num=None):
     maxmin_ranges = None
+    # print(f'maxmin is {maxmin}')
+    # print(f'filterlengths is {filterlengths}')
+    # print(f'linspace is {linspace_num}')
+    # exit(0)
     if maxmin == None:
         maxmin_ranges = np.linspace(0.002, 0.002, 1, endpoint=True)
     else:
@@ -112,33 +116,42 @@ def moving_avg_testing(filterlengths=None, maxmin=None, linspace_num=None):
 
 
 @profiler(run_profiler=False, output_file=config.BACKTEST_PROFILE)
-def run_backtest_bot():
+def run_backtest_bot(cli_args):
     '''backtest strategy using recorded data'''
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        filterlengths = []
-        upper_range = 1_000
-        num_processors = multiprocessing.cpu_count()
-        division_size = upper_range // num_processors
-
-        current_lower = 0
-        for i in range(1, num_processors+1):
-            filterlengths.append([current_lower, i*division_size])
-            current_lower = i*division_size
-
         maxmin_ranges = []
-        maxmin_upper_range = 0.1
-        maxmin_div_size = maxmin_upper_range / num_processors
-        maxmin_cur_lower = 0
-        for i in range(1, num_processors+1):
-            maxmin_ranges.append([maxmin_cur_lower, i*maxmin_div_size])
-            maxmin_cur_lower = i*maxmin_div_size
+        filterlengths = []
+        num_processors = multiprocessing.cpu_count()
+
+        if cli_args.test_type == 'maxmin_range':
+            maxmin_upper_range = 0.1
+            maxmin_div_size = maxmin_upper_range / num_processors
+            maxmin_cur_lower = 0
+            for i in range(1, num_processors+1):
+                maxmin_ranges.append([maxmin_cur_lower, i*maxmin_div_size])
+                maxmin_cur_lower = i*maxmin_div_size
+
+            print(maxmin_ranges)
+            executor.map(moving_avg_testing, [None for _ in range(4)], maxmin_ranges, [250 for _ in range(4)])
+        else:
+            upper_range = 1_000
+            division_size = upper_range // num_processors
+
+            current_lower = 0
+            for i in range(1, num_processors+1):
+                filterlengths.append([current_lower, i*division_size])
+                current_lower = i*division_size
+            
+            print(filterlengths)
+
+            executor.map(moving_avg_testing, filterlengths)
+
 
         # print(maxmin_ranges)
         # exit(0)
 
 
 
-        executor.map(moving_avg_testing, filterlengths)
     
     best_param_data = {
         "best_profit": overall_max_profit.value,
@@ -158,13 +171,13 @@ def run_backtest_bot():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('runtype')
-    parser.add_argument('--testtype', required=False)
+    parser.add_argument('--test_type', required=False)
     args = parser.parse_args()
-    print(args.runtype)
-    print(args.testtype)
-    exit(0)
+    # print(args.runtype)
+    # print(args.testtype)
+    # exit(0)
     if args.runtype == 'test':
-        run_backtest_bot()
+        run_backtest_bot(args)
     elif args.runtype == 'prod':
         print('going live!!!')
     else:

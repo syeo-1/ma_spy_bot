@@ -39,6 +39,8 @@ def plot_recorded_shared_data():
     
     plot_arrs = []
     for key in shared_data[0]:
+        if key == 'filterlength':
+            continue
         plot_arrs.append([data[key] for data in shared_data])
     
     for arr in plot_arrs:
@@ -88,5 +90,5 @@ def plot_optimal_params():
     # create a plot using the best parameters
 
 if __name__ == '__main__':
-    # plot_recorded_shared_data()
-    plot_optimal_params()
+    plot_recorded_shared_data()
+    # plot_optimal_params()
