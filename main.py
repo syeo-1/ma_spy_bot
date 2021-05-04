@@ -13,6 +13,7 @@ import multiprocessing
 from sklearn import preprocessing
 import plotter
 import config
+import argparse
 
 trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data(config.RECORDED_DATA)]
 
@@ -70,8 +71,18 @@ def get_stream_data_prices(prices, filterlength, maxmin_range):
 
 
 
-def moving_avg_testing(filterlengths):
-    maxmin_ranges = np.linspace(0.002, 0.002, 1, endpoint=True)
+def moving_avg_testing(filterlengths=None, maxmin=None, linspace_num=None):
+    maxmin_ranges = None
+    if maxmin == None:
+        maxmin_ranges = np.linspace(0.002, 0.002, 1, endpoint=True)
+    else:
+        maxmin_ranges = np.linspace(maxmin[0], maxmin[1], linspace_num, endpoint=True)
+
+    if filterlengths == None:
+        filterlengths = [500,501]
+    
+
+
     max_profit = -math.inf
     best_filterlength = None
     best_maxmin_range = None
@@ -113,6 +124,20 @@ def run_backtest_bot():
         for i in range(1, num_processors+1):
             filterlengths.append([current_lower, i*division_size])
             current_lower = i*division_size
+
+        maxmin_ranges = []
+        maxmin_upper_range = 0.1
+        maxmin_div_size = maxmin_upper_range / num_processors
+        maxmin_cur_lower = 0
+        for i in range(1, num_processors+1):
+            maxmin_ranges.append([maxmin_cur_lower, i*maxmin_div_size])
+            maxmin_cur_lower = i*maxmin_div_size
+
+        # print(maxmin_ranges)
+        # exit(0)
+
+
+
         executor.map(moving_avg_testing, filterlengths)
     
     best_param_data = {
@@ -131,10 +156,15 @@ def run_backtest_bot():
 
 
 def main():
-    run_type = sys.argv[1]
-    if run_type == 'test':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('runtype')
+    parser.add_argument('testtype', default=None)
+    args = parser.parse_args()
+    print(args.runtype)
+    exit(0)
+    if args.runtype == 'test':
         run_backtest_bot()
-    elif run_type == 'prod':
+    elif args.runtype == 'prod':
         print('going live!!!')
     else:
         print('invalid run_type given. Please give either test or prod')
