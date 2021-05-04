@@ -158,9 +158,10 @@ def run_backtest_bot():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('runtype')
-    parser.add_argument('testtype', default=None)
+    parser.add_argument('--testtype', required=False)
     args = parser.parse_args()
     print(args.runtype)
+    print(args.testtype)
     exit(0)
     if args.runtype == 'test':
         run_backtest_bot()
