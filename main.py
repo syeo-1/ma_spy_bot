@@ -28,9 +28,6 @@ overall_max_profit = manager.Value('d', -1.0)
 
 best_param_file = config.BEST_PARAM_FILE
 
-
-
-
 def get_diff(first, second):
     return second - first
 
@@ -72,10 +69,6 @@ def get_stream_data_prices(prices, filterlength, maxmin_range):
 
 def moving_avg_testing(filterlengths=None, maxmin=None, linspace_num=None):
     maxmin_ranges = None
-    # print(f'maxmin is {maxmin}')
-    # print(f'filterlengths is {filterlengths}')
-    # print(f'linspace is {linspace_num}')
-    # exit(0)
     if maxmin == None:
         maxmin_ranges = np.linspace(0.002, 0.002, 1, endpoint=True)
     else:
@@ -144,13 +137,6 @@ def run_backtest_bot(cli_args):
 
             executor.map(moving_avg_testing, filterlengths)
 
-
-        # print(maxmin_ranges)
-        # exit(0)
-
-
-
-    
     best_param_data = {
         "best_profit": overall_max_profit.value,
         "best_filterlength": overall_best_filterlength.value,
@@ -177,8 +163,6 @@ def run_prod_bot():
         optimal_filterlength = int(best_param_data[1])
         optimal_maxmin_range = float(best_param_data[2])
 
-    # print(optimal_filterlength)
-    # print(optimal_maxmin_range)
     data_streamer.initiliaze_stream('production', optimal_filterlength, optimal_maxmin_range)
 
 def main():
@@ -186,9 +170,6 @@ def main():
     parser.add_argument('runtype')
     parser.add_argument('--test_type', required=False)
     args = parser.parse_args()
-    # print(args.runtype)
-    # print(args.testtype)
-    # exit(0)
     if args.runtype == 'test':
         run_backtest_bot(args)
     elif args.runtype == 'production':

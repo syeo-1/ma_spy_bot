@@ -6,8 +6,6 @@ from datetime import datetime
 import actions
 import strategy
 
-fresh_minute = False
-
 socket = "wss://data.alpaca.markets/stream"
 
 def authenticate_connection(ws):
@@ -36,10 +34,8 @@ trade_file = open("/Users/seanyeo/Desktop/studying resources/self-learning/alpac
 quote_file = open("/Users/seanyeo/Desktop/studying resources/self-learning/alpaca_trading/ma_spy_bot/SPY_quote_data.txt", "a")
 
 def stream_data(ws, msg):
-    # convert message from string to dictionary
     global prod_bot
     processed_msg = json.loads(msg)
-    # print(processed_msg['data'])
     if processed_msg['stream'] == f'T.{config.STOCK_NAME}':
         print(processed_msg['data']['p'])
         prod_bot.process_security(processed_msg['data']['p'])
@@ -48,13 +44,8 @@ def stream_data(ws, msg):
 def record_data(ws, msg):
     # convert message from string to dictionary
     dict_msg = ast.literal_eval(msg)
-    global fresh_minute
-    # print(dict_msg)
-    # only process stock ticker data
     if dict_msg["stream"] == f"T.{config.STOCK_NAME}":
-        # print(dict_msg)
         trade_file.write(msg+'\n')
-        # process(dict_msg)
     elif dict_msg["stream"] == f"Q.{config.STOCK_NAME}":
         quote_file.write(msg+'\n')
 
@@ -66,16 +57,10 @@ def on_close(ws):
 prod_bot = None
 
 def initiliaze_stream(runtype, optimal_filterlength, optimal_maxmin_range):
-    # make sure to build candlesticks only if the minute is new
-    # while not fresh_minute:
-    #     current_second = datetime.now().time().second
-    #     if current_second == 0:
-    #         break
 
     global prod_bot
 
     if runtype == 'recording':
-    # begin streaming data
         ws = websocket.WebSocketApp(socket, on_open=authenticate_connection, on_message=record_data, on_close=on_close)
         ws.run_forever()
     elif runtype == 'production':
@@ -85,7 +70,4 @@ def initiliaze_stream(runtype, optimal_filterlength, optimal_maxmin_range):
 
 
 if __name__ == "__main__":
-    # creator = Candlestick_creator()
-    # trade_file.write('testing123')
-    # quote_file.write('testing123')
-    initiliaze_stream('recording')
+    initiliaze_stream('recording', 300, 0.001)

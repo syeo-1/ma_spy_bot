@@ -72,7 +72,7 @@ class MovingAvgStrat(object):
     def sell_security(self):
         buy_order_info = {
             "symbol": config.STOCK_NAME,
-            "qty": 1, # buy a single share for now
+            "qty": 1, 
             "side": "sell",
             "type": "market",
             "time_in_force": "day",
@@ -85,7 +85,6 @@ class MovingAvgStrat(object):
         print(response)
 
     def process_security(self, stream_price):
-        currentBuy = None
         self.data.append(stream_price)
         if len(self.data) == self.filterlength:
             avg = sum(self.data)/self.filterlength
@@ -97,46 +96,13 @@ class MovingAvgStrat(object):
                 self.d2 = self.data_d1[1]-self.data_d1[0]
 
                 if -self.maxmin_range < self.d1 < self.maxmin_range and self.d2 > 0 and self.buy:
-                    # currentBuy = price
                     self.buy_security()
                     self.buy = False
                     self.sell = True
                 elif -self.maxmin_range < self.d1 < self.maxmin_range and self.d2 < 0 and self.sell:
-                    # currentSell = price
                     self.sell_security()
-                    # profit += currentSell - currentBuy
                     self.buy = True
                     self.sell = False
-
-
-
-
-def moving_avg_strategy(prices, filterlength, maxmin_range):
-
-
-    currentBuy = None
-    for price in prices:
-        test_deque.append(price)
-        if len(test_deque) == filterlength:
-            avg = sum(test_deque)/filterlength
-            d_calculations.append(avg)
-            if len(d_calculations) == 3:
-                for i in range(2):
-                    d1_deque.append(get_diff(d_calculations[i], d_calculations[i+1]))
-                d1 = d1_deque[1]
-                d2 = get_diff(d1_deque[0], d1_deque[1])
-
-                if -maxmin_range < d1 < maxmin_range and d2 > 0 and buy:
-                    currentBuy = price
-                    buy = False
-                    sell = True
-                elif -maxmin_range < d1 < maxmin_range and d2 < 0 and sell:
-                    currentSell = price
-                    profit += currentSell - currentBuy
-                    buy = True
-                    sell = False
-                
-    return profit
 
 if __name__ == '__main__':
     # create instance of movingAvgStrat

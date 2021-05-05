@@ -66,9 +66,6 @@ def record_shared_data(shared_data, shared_data_file):
         for dic in sorted_shared_data:
             output.write(json.dumps(dic)+'\n')
 
-def find_correlation_for_shared_data():
-    pass
-
 # demo/test below
 # the below will only run if the file is being called directly!
 # ie. 'python3 processing.py'
