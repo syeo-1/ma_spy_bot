@@ -45,6 +45,7 @@ def StrategyFactory(name, buy=None, sell=None, process=None, BaseStrategy=BaseSt
 HEADERS = {'APCA-API-KEY-ID': config.ALPACA_API_KEY, 'APCA-API-SECRET-KEY': config.ALPACA_SECRET_KEY}
 
 class MovingAvgStrat(object):
+    ''' Use moving averages to smooth out data to find local maxima and minima in price streams'''
     def __init__(self, filterlength, maxmin_range):
         self.data = deque(maxlen=filterlength)
         self.data_d1_calc = deque(maxlen=3)
@@ -55,6 +56,8 @@ class MovingAvgStrat(object):
         self.sell = False
 
     def buy_security(self):
+        ''' create a market buy order for the specified security'''
+
         buy_order_info = {
             "symbol": config.STOCK_NAME,
             "qty": 1, # buy a single share for now
@@ -70,6 +73,8 @@ class MovingAvgStrat(object):
         print(response)
 
     def sell_security(self):
+        ''' create a market sell order for the share that has been bought '''
+
         buy_order_info = {
             "symbol": config.STOCK_NAME,
             "qty": 1, 
@@ -85,6 +90,7 @@ class MovingAvgStrat(object):
         print(response)
 
     def process_security(self, stream_price):
+        ''' process data from the stream and buy and sell using specified strategy '''
         self.data.append(stream_price)
         if len(self.data) == self.filterlength:
             avg = sum(self.data)/self.filterlength

@@ -49,6 +49,7 @@ def plot_recorded_shared_data():
     plt.show()
 
 def is_int(str_num):
+    ''' returns whether or not a given string is an integer '''
     try:
         int_num = int(str_num)
         float_num = float(str_num)
@@ -58,7 +59,7 @@ def is_int(str_num):
         return int_num == float_num
 
 def plot_optimal_params():
-    # get the optimal params stored in param_file.txt
+    ''' plot the optimal recorded parameters to see if any trends appear '''
     param_file = open(config.BEST_PARAM_FILE, 'r')
     
     is_header = True
@@ -86,8 +87,6 @@ def plot_optimal_params():
         plt.plot(data)
     
     plt.show()
-
-    # create a plot using the best parameters
 
 if __name__ == '__main__':
     plot_recorded_shared_data()

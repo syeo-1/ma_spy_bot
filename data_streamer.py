@@ -9,6 +9,8 @@ import strategy
 socket = "wss://data.alpaca.markets/stream"
 
 def authenticate_connection(ws):
+    ''' authenticate connection using alpaca REST API key and secret key '''
+
     print("===connection opened===")
     authentication = {
         "action":"authenticate",
@@ -34,6 +36,7 @@ trade_file = open("/Users/seanyeo/Desktop/studying resources/self-learning/alpac
 quote_file = open("/Users/seanyeo/Desktop/studying resources/self-learning/alpaca_trading/ma_spy_bot/SPY_quote_data.txt", "a")
 
 def stream_data(ws, msg):
+    ''' process streamed data for production bot '''
     global prod_bot
     processed_msg = json.loads(msg)
     if processed_msg['stream'] == f'T.{config.STOCK_NAME}':
@@ -42,7 +45,7 @@ def stream_data(ws, msg):
         
 
 def record_data(ws, msg):
-    # convert message from string to dictionary
+    ''' record streamed data to a specified file '''
     dict_msg = ast.literal_eval(msg)
     if dict_msg["stream"] == f"T.{config.STOCK_NAME}":
         trade_file.write(msg+'\n')
@@ -57,7 +60,7 @@ def on_close(ws):
 prod_bot = None
 
 def initiliaze_stream(runtype, optimal_filterlength, optimal_maxmin_range):
-
+    ''' initialize a websocket connection with alpaca markets '''
     global prod_bot
 
     if runtype == 'recording':

@@ -29,9 +29,11 @@ overall_max_profit = manager.Value('d', -1.0)
 best_param_file = config.BEST_PARAM_FILE
 
 def get_diff(first, second):
+    ''' return the difference between two elements '''
     return second - first
 
 def get_stream_data_prices(prices, filterlength, maxmin_range):
+    ''' use a simulated stream of recorded data to test a single pair of parameters '''
     test_deque = deque(maxlen=filterlength)
     d_calculations = deque(maxlen=3)
     d1_deque = deque(maxlen=2)
@@ -68,6 +70,7 @@ def get_stream_data_prices(prices, filterlength, maxmin_range):
 
 
 def moving_avg_testing(filterlengths=None, maxmin=None, linspace_num=None):
+    ''' test what parameters to use for moving averages smoothing '''
     maxmin_ranges = None
     if maxmin == None:
         maxmin_ranges = np.linspace(0.002, 0.002, 1, endpoint=True)
@@ -149,6 +152,7 @@ def run_backtest_bot(cli_args):
     # record the shared data (all params and profits)
     processing.record_shared_data(shared_data, config.SHARED_DATA_FILE)
 
+    # plot out the data and sort by a given key amongst profit, maxmin_range, or filterlength
     plotter.plot_dict_list(shared_data,'profit')
 
 
