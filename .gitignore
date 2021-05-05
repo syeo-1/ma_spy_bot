@@ -1,0 +1,7 @@
+config.py
+__pycache__/
+.vscode
+test_stuff.py
+processed_spy_quotes.csv
+data_visualizer.py
+time_test.txt
