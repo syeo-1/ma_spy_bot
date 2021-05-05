@@ -65,6 +65,7 @@ class MovingAvgStrat(object):
 
         r = requests.post(config.ORDERS_URL, json=buy_order_info, headers=HEADERS)
         response = json.loads(r.content)
+        print('just bought 1 share!')
 
         print(response)
 
@@ -78,6 +79,8 @@ class MovingAvgStrat(object):
         }
         r = requests.post(config.ORDERS_URL, json=buy_order_info, headers=HEADERS)
         response = json.loads(r.content)
+
+        print('just sold 1 share!')
 
         print(response)
 

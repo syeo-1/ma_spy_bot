@@ -14,6 +14,7 @@ from sklearn import preprocessing
 import plotter
 import config
 import argparse
+import data_streamer
 
 trade_prices = [msg['data']['p'] for msg in processing.jsonify_recorded_data(config.RECORDED_DATA)]
 
@@ -28,8 +29,6 @@ overall_max_profit = manager.Value('d', -1.0)
 best_param_file = config.BEST_PARAM_FILE
 
 
-def run_prod_bot():
-    pass
 
 
 def get_diff(first, second):
@@ -84,7 +83,6 @@ def moving_avg_testing(filterlengths=None, maxmin=None, linspace_num=None):
 
     if filterlengths == None:
         filterlengths = [500,501]
-    
 
 
     max_profit = -math.inf
@@ -168,6 +166,21 @@ def run_backtest_bot(cli_args):
     plotter.plot_dict_list(shared_data,'profit')
 
 
+def run_prod_bot():
+    ''' run bot that sends requests to alpaca markets to execute trades '''
+
+    # get most recent optimal parameters from file
+    optimal_filterlength = None
+    optimal_maxmin_range = None
+    with open(best_param_file, 'r') as param_file:
+        best_param_data = param_file.readlines()[-1].split(',')
+        optimal_filterlength = int(best_param_data[1])
+        optimal_maxmin_range = float(best_param_data[2])
+
+    # print(optimal_filterlength)
+    # print(optimal_maxmin_range)
+    data_streamer.initiliaze_stream('production', optimal_filterlength, optimal_maxmin_range)
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('runtype')
@@ -178,12 +191,13 @@ def main():
     # exit(0)
     if args.runtype == 'test':
         run_backtest_bot(args)
-    elif args.runtype == 'prod':
-        print('going live!!!')
+    elif args.runtype == 'production':
+        run_prod_bot()
     else:
         print('invalid run_type given. Please give either test or prod')
         exit(1)
 
+    
 
 if __name__ == '__main__':
     main()

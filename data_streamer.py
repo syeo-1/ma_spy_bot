@@ -3,6 +3,8 @@ import config
 import ast
 from collections import deque
 from datetime import datetime
+import actions
+import strategy
 
 fresh_minute = False
 
@@ -35,6 +37,16 @@ quote_file = open("/Users/seanyeo/Desktop/studying resources/self-learning/alpac
 
 def stream_data(ws, msg):
     # convert message from string to dictionary
+    global prod_bot
+    processed_msg = json.loads(msg)
+    # print(processed_msg['data'])
+    if processed_msg['stream'] == f'T.{config.STOCK_NAME}':
+        print(processed_msg['data']['p'])
+        prod_bot.process_security(processed_msg['data']['p'])
+        
+
+def record_data(ws, msg):
+    # convert message from string to dictionary
     dict_msg = ast.literal_eval(msg)
     global fresh_minute
     # print(dict_msg)
@@ -51,19 +63,29 @@ def on_close(ws):
     trade_file.close()
     quote_file.close()
 
-def initiliaze_stream():
+prod_bot = None
+
+def initiliaze_stream(runtype, optimal_filterlength, optimal_maxmin_range):
     # make sure to build candlesticks only if the minute is new
     # while not fresh_minute:
     #     current_second = datetime.now().time().second
     #     if current_second == 0:
     #         break
 
+    global prod_bot
+
+    if runtype == 'recording':
     # begin streaming data
-    ws = websocket.WebSocketApp(socket, on_open=authenticate_connection, on_message=stream_data, on_close=on_close)
-    ws.run_forever()
+        ws = websocket.WebSocketApp(socket, on_open=authenticate_connection, on_message=record_data, on_close=on_close)
+        ws.run_forever()
+    elif runtype == 'production':
+        prod_bot = strategy.MovingAvgStrat(optimal_filterlength, optimal_maxmin_range)
+        ws = websocket.WebSocketApp(socket, on_open=authenticate_connection, on_message=stream_data, on_close=on_close)
+        ws.run_forever()
+
 
 if __name__ == "__main__":
     # creator = Candlestick_creator()
     # trade_file.write('testing123')
     # quote_file.write('testing123')
-    initiliaze_stream()
+    initiliaze_stream('recording')
